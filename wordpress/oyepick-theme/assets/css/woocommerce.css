@@ -1,10 +1,10 @@
 /* ============ OyePick — WordPress / WooCommerce layer ============ */
 
 /* Logo */
-.logo-full{height:44px;width:auto;display:block}
+.logo-full{height:44px !important;width:auto !important;max-width:none !important;display:block}
 .site-footer .logo-full{height:42px}
 .mnav .logo-full{height:38px}
-@media (max-width:860px){.site-header .logo-full{height:36px}}
+@media (max-width:860px){.site-header .logo-full{height:36px !important}}
 
 /* Footer element name differs from the static page (footer → .site-footer) */
 .site-footer{background:var(--dark);color:#9fb0ae;padding:68px 0 26px;margin-top:80px;font-size:14.5px}
