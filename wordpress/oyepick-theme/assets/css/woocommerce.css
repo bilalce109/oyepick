@@ -128,7 +128,7 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .single-product div.product > *{min-width:0}
 .single-product div.product > *{grid-column:1/-1}
 .single-product div.product .woocommerce-product-gallery{grid-column:1;width:100% !important;float:none !important;margin:0 !important}
-.single-product div.product .summary{grid-column:2;width:100% !important;float:none !important;margin:0 !important;position:sticky;top:150px}
+.single-product div.product .summary{grid-column:2;width:100% !important;float:none !important;margin:0 !important}
 .single-product div.product .woocommerce-product-gallery__image img{border-radius:20px}
 .single-product .flex-control-thumbs{display:flex;gap:10px;margin-top:12px !important}
 .single-product .flex-control-thumbs li{width:76px !important}
@@ -266,3 +266,19 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 /* Gallery */
 .single-product .woocommerce-product-gallery{background:var(--bg-2);border-radius:22px}
 .single-product .woocommerce-product-gallery__trigger{background:#fff;border-radius:50%;box-shadow:var(--shadow)}
+
+/* Single product: balanced layout */
+.single-product div.product .summary{position:static}
+.single-product .flex-control-thumbs{flex-wrap:nowrap !important;overflow-x:auto;padding:0 2px 6px !important;scrollbar-width:thin}
+.single-product .flex-control-thumbs li{flex:none}
+.woocommerce-Tabs-panel h4{font-size:16px;margin:18px 0 8px;color:var(--ink)}
+.woocommerce-Tabs-panel p{margin:0 0 12px}
+.woocommerce-Tabs-panel ul{margin:0 0 16px 20px !important}
+.woocommerce-Tabs-panel li{margin:4px 0}
+.woocommerce-product-attributes{border:0 !important}
+.woocommerce-product-attributes th,.woocommerce-product-attributes td{padding:12px 14px !important;border-color:var(--line) !important;font-style:normal !important}
+.op-product-reviews .woocommerce-noreviews{padding:28px 20px}
+@media (max-width:860px){.op-product-reviews .woocommerce-noreviews{padding:22px 16px}.op-product-reviews #review_form_wrapper{padding:18px}}
+
+/* No sticky columns on the product page: they overlapped the tabs/reviews while scrolling */
+.single-product div.product .summary,.single-product div.product .woocommerce-product-gallery{position:relative !important;top:auto !important}
