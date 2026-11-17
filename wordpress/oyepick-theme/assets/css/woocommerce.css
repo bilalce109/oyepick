@@ -237,3 +237,32 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .op-card .body .note{margin:0 0 12px !important}
 .wc-block-cart-items .wc-block-components-product-metadata{display:none}
 .op-card .foot .price.ask,.woocommerce .op-card .foot .price.ask{font-size:14px !important;font-weight:700 !important;color:var(--brand) !important}
+
+/* Single product summary extras */
+.single-product .summary .price{margin:6px 0 14px !important}
+.op-colours{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 18px}
+.op-colours span{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.op-colours ul{list-style:none;display:flex;gap:8px;flex-wrap:wrap}
+.op-colours li{border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:600;color:var(--ink);background:#fff}
+.single-product form.cart{margin:18px 0 12px !important}
+.single-product form.cart button.single_add_to_cart_button{flex:1;max-width:320px}
+.op-wa-order{display:flex;align-items:center;justify-content:center;gap:10px;height:50px;max-width:420px;border-radius:999px;background:#25744f;color:#fff !important;font-weight:700;margin:0 0 22px;transition:.2s}
+.op-wa-order:hover{background:#1d5e40}
+.op-trust-mini{list-style:none;display:grid;gap:0;border:1px solid var(--line);border-radius:18px;margin:0 0 22px;overflow:hidden}
+.op-trust-mini li{display:flex;gap:14px;align-items:center;padding:14px 18px}
+.op-trust-mini li + li{border-top:1px solid var(--line)}
+.op-trust-mini svg{flex:none;color:var(--brand)}
+.op-trust-mini b{display:block;color:var(--ink);font-size:14.5px}
+.op-trust-mini small{color:var(--muted);font-size:13px}
+.single-product .woocommerce-tabs .panel{background:#fff;border:1px solid var(--line);border-radius:0 18px 18px 18px;padding:24px 26px !important;margin:0 !important}
+.single-product .woocommerce-tabs ul.tabs li a{font-weight:700 !important}
+/* Reviews: empty state + layout */
+.op-product-reviews .woocommerce-Reviews-title{display:flex;align-items:center;gap:10px}
+.op-product-reviews .woocommerce-noreviews{background:#fff;border:1.5px dashed var(--line);border-radius:18px;padding:40px 24px;text-align:center;font-weight:600;color:var(--ink-2) !important}
+.op-product-reviews .woocommerce-noreviews::before{content:"★★★★★";display:block;font-size:26px;letter-spacing:4px;color:#e9dcc2;margin-bottom:10px}
+.op-product-reviews #review_form_wrapper .comment-reply-title{font-size:18px;font-weight:700;color:var(--ink);display:block;margin-bottom:8px}
+.op-product-reviews #respond .comment-form-cookies-consent{font-size:13px;color:var(--muted)}
+.op-product-reviews #respond input#submit{margin-top:6px}
+/* Gallery */
+.single-product .woocommerce-product-gallery{background:var(--bg-2);border-radius:22px}
+.single-product .woocommerce-product-gallery__trigger{background:#fff;border-radius:50%;box-shadow:var(--shadow)}

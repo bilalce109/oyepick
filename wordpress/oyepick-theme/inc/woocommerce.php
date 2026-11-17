@@ -98,3 +98,68 @@ function oyepick_product_cats( $product ) {
 	}
 	return array( $parent, $label );
 }
+
+/* ---------- Single product: richer summary ---------- */
+
+// No duplicate "Description" / "Additional information" headings inside the tabs.
+add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
+add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
+
+// Colour chips (from the product's "Colour" attribute) under the price.
+add_action(
+	'woocommerce_single_product_summary',
+	function () {
+		global $product;
+		$colours = $product ? $product->get_attribute( 'Colour' ) : '';
+		if ( ! $colours ) {
+			return;
+		}
+		echo '<div class="op-colours"><span>' . esc_html__( 'Available colours', 'oyepick' ) . '</span><ul>';
+		foreach ( array_filter( array_map( 'trim', preg_split( '/[|,]/', $colours ) ) ) as $c ) {
+			echo '<li>' . esc_html( $c ) . '</li>';
+		}
+		echo '</ul></div>';
+	},
+	25
+);
+
+// WhatsApp order button + trust points after "Add to cart".
+add_action(
+	'woocommerce_single_product_summary',
+	function () {
+		global $product;
+		if ( ! $product ) {
+			return;
+		}
+		$msg = sprintf( 'Assalam o Alaikum, I want to order: %s (%s)', $product->get_name(), get_permalink( $product->get_id() ) );
+		echo '<a class="op-wa-order" href="' . esc_url( oyepick_wa_link( $msg ) ) . '" target="_blank" rel="noopener">' . oyepick_social_icon( 'whatsapp', 20 ) . esc_html__( 'Order on WhatsApp', 'oyepick' ) . '</a>'; // phpcs:ignore
+		echo '<ul class="op-trust-mini">';
+		echo '<li>' . oyepick_icon( 'cash', 20 ) . '<div><b>' . esc_html__( 'Cash on Delivery', 'oyepick' ) . '</b><small>' . esc_html__( 'Pay when you receive', 'oyepick' ) . '</small></div></li>'; // phpcs:ignore
+		echo '<li>' . oyepick_icon( 'truck', 20 ) . '<div><b>' . esc_html__( 'Delivery all over Pakistan', 'oyepick' ) . '</b><small>' . esc_html__( 'Fast dispatch from Karachi', 'oyepick' ) . '</small></div></li>'; // phpcs:ignore
+		echo '<li>' . oyepick_icon( 'shield', 20 ) . '<div><b>' . esc_html__( 'Quality checked', 'oyepick' ) . '</b><small>' . esc_html__( 'Every order inspected', 'oyepick' ) . '</small></div></li>'; // phpcs:ignore
+		echo '</ul>';
+	},
+	32
+);
+
+// Always show 4 related products (fill with other products when a category is small).
+add_filter(
+	'woocommerce_related_products',
+	function ( $related, $product_id ) {
+		if ( count( $related ) >= 4 ) {
+			return $related;
+		}
+		$more = wc_get_products(
+			array(
+				'status'  => 'publish',
+				'limit'   => 4 - count( $related ),
+				'exclude' => array_merge( array( $product_id ), $related ),
+				'orderby' => 'rand',
+				'return'  => 'ids',
+			)
+		);
+		return array_merge( $related, $more );
+	},
+	10,
+	2
+);
