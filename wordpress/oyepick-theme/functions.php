@@ -81,7 +81,7 @@ function oyepick_assets() {
 		)
 	);
 }
-add_action( 'wp_enqueue_scripts', 'oyepick_assets' );
+add_action( 'wp_enqueue_scripts', 'oyepick_assets', 20 ); // after WooCommerce registers its scripts
 
 /**
  * Favicon fallback when no Site Icon is set in the Customizer.
