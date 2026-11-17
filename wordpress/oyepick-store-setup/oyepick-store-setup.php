@@ -70,6 +70,27 @@ function oyepick_setup_run( $args = array() ) {
 		)
 	);
 	update_option( 'woocommerce_onboarding_profile', array( 'skipped' => true, 'completed' => true ) );
+	update_option( 'woocommerce_ship_to_destination', 'billing_only' );
+	update_option( 'woocommerce_checkout_phone_field', 'required' );
+	update_option( 'woocommerce_checkout_company_field', 'hidden' );
+	// Shipping zone for Pakistan (checkout needs at least one shipping method). Set real delivery charges in WooCommerce → Settings → Shipping.
+	$has_pk = false;
+	foreach ( WC_Shipping_Zones::get_zones() as $z ) {
+		foreach ( $z['zone_locations'] as $loc ) {
+			if ( 'PK' === $loc->code ) {
+				$has_pk = true;
+			}
+		}
+	}
+	if ( ! $has_pk ) {
+		$zone = new WC_Shipping_Zone();
+		$zone->set_zone_name( 'Pakistan' );
+		$zone->add_location( 'PK', 'country' );
+		$zone->save();
+		$iid = $zone->add_shipping_method( 'flat_rate' );
+		update_option( 'woocommerce_flat_rate_' . $iid . '_settings', array( 'title' => 'Delivery all over Pakistan', 'tax_status' => 'none', 'cost' => '0' ) );
+		$log[] = 'Shipping zone "Pakistan" added (delivery charge Rs 0 — change it in WooCommerce → Settings → Shipping).';
+	}
 	$log[] = 'WooCommerce: PKR currency, Cash on Delivery on, reviews + ratings on, AJAX add to cart on.';
 
 	/* ---------- Categories ---------- */
