@@ -458,3 +458,6 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .wp-block-woocommerce-checkout,.wp-block-woocommerce-cart,.wc-block-components-sidebar-layout{max-width:100% !important;width:100% !important;margin-left:0 !important;margin-right:0 !important;box-sizing:border-box}
 .wc-block-components-sidebar-layout .wc-block-components-main,.wc-block-components-sidebar-layout .wc-block-components-sidebar{box-sizing:border-box}
 @media (max-width:700px){.wc-block-components-sidebar-layout .wc-block-components-main,.wc-block-components-sidebar-layout .wc-block-components-sidebar{width:100% !important;padding-left:0 !important;padding-right:0 !important}.page-main{overflow-x:clip}}
+
+/* Mobile: colour chip on hero slides covered the product photo */
+@media (max-width:860px){.stage .tagchip{display:none !important}}
