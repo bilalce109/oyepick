@@ -148,7 +148,7 @@ function oyepick_logo( $variant = 'dark' ) {
 		return '<a href="' . esc_url( home_url( '/' ) ) . '" class="logo" rel="home"><img class="logo-full" src="' . esc_url( $src ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '"></a>';
 	}
 	$file = 'white' === $variant ? 'oyepick-logo-white.svg' : 'oyepick-logo.svg';
-	return '<a href="' . esc_url( home_url( '/' ) ) . '" class="logo" rel="home"><img class="logo-full" src="' . esc_url( oyepick_img( 'brand/' . $file ) ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="263" height="64"></a>';
+	return '<a href="' . esc_url( home_url( '/' ) ) . '" class="logo" rel="home"><img class="logo-full" src="' . esc_url( oyepick_img( 'brand/' . $file ) ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="259" height="64"></a>';
 }
 
 /**

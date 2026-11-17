@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OyePick">
-  <defs><linearGradient id="opBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#23737a"/><stop offset="1" stop-color="#154a50"/></linearGradient>
-    <linearGradient id="opGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2b36e"/><stop offset="1" stop-color="#c4843a"/></linearGradient></defs>
+  <defs><linearGradient id="opBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#26808a"/><stop offset="1" stop-color="#13454b"/></linearGradient>
+    <linearGradient id="opGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ebc07a"/><stop offset="1" stop-color="#c4843a"/></linearGradient></defs>
   <rect width="64" height="64" rx="18" fill="url(#opBg)"/>
-    <path d="M24.5 23.5v-2.5a7.5 7.5 0 0 1 15 0v2.5" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/>
-    <path d="M17.6 23h28.8a2.4 2.4 0 0 1 2.39 2.6l-1.75 20.3A6 6 0 0 1 41.06 51.4H22.94a6 6 0 0 1-5.98-5.5L15.21 25.6A2.4 2.4 0 0 1 17.6 23z" fill="#fff"/>
-    <path d="M25 37.6l5 5 9.4-10.2" fill="none" stroke="url(#opGold)" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M25 24v-3.2a7 7 0 0 1 14 0V24" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round"/>
+    <path d="M18.2 23.5h27.6a2.6 2.6 0 0 1 2.58 2.86l-1.86 18.9a6.4 6.4 0 0 1-6.37 5.76H23.85a6.4 6.4 0 0 1-6.37-5.76l-1.86-18.9a2.6 2.6 0 0 1 2.58-2.86z" fill="#fff"/>
+    <path d="M18.2 23.5h27.6a2.6 2.6 0 0 1 2.58 2.86l-.33 3.34H15.95l-.33-3.34a2.6 2.6 0 0 1 2.58-2.86z" fill="#d7ebe8"/>
+    <path d="M25.4 39.2l4.6 4.6 8.8-9.4" fill="none" stroke="url(#opGold)" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M48.5 9.5l1.25 3.25 3.25 1.25-3.25 1.25-1.25 3.25-1.25-3.25-3.25-1.25 3.25-1.25z" fill="url(#opGold)"/>
 </svg>
