@@ -461,3 +461,16 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 
 /* Mobile: colour chip on hero slides covered the product photo */
 @media (max-width:860px){.stage .tagchip{display:none !important}}
+
+/* Product backdrop: more prominent (v1.2.0) */
+.op-product-bg{height:min(1100px,100%)}
+.op-product-bg span{inset:-30px !important;filter:blur(9px) saturate(1.5) brightness(.97) !important;opacity:.95 !important;transform:scale(1.04) !important;background-position:center 40% !important}
+.op-product-bg::after{background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,rgba(255,255,255,.12) 45%,rgba(255,255,255,.55) 80%,#fff 100%) !important}
+.single-product div.product .summary{background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.7);border-radius:26px;padding:30px 30px 24px !important;box-shadow:0 30px 60px -30px rgba(20,35,37,.35)}
+.single-product div.product .woocommerce-product-gallery{background:rgba(255,255,255,.7) !important;box-shadow:0 30px 60px -28px rgba(20,35,37,.45)}
+.single-product .woocommerce-breadcrumb{background:rgba(255,255,255,.85);display:inline-block;padding:6px 14px;border-radius:999px}
+@media (max-width:860px){
+  .op-product-bg{height:900px}
+  .op-product-bg span{filter:blur(7px) saturate(1.45) !important}
+  .single-product div.product .summary{padding:22px 18px 18px !important;border-radius:22px}
+}
