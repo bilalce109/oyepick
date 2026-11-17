@@ -352,3 +352,6 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .op-rv-empty p{color:var(--muted);margin:2px 0 0;font-size:14px}
 @media (max-width:960px){.op-rv-top{grid-template-columns:1fr}}
 @media (max-width:640px){.op-product-reviews{padding:20px}.op-rv-form{padding:20px}.op-rv-form form.comment-form{grid-template-columns:1fr}.op-rv-form .comment-form-email{grid-column:1 !important}.op-rv-list{grid-template-columns:1fr}.op-rv-head .btn{width:100%;justify-content:center}}
+
+/* Demo review badge (staging/demo content only) */
+.rv-demo{display:inline-flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#8a5a1c;background:#f5e7d3;padding:3px 9px;border-radius:999px;margin:3px 0}

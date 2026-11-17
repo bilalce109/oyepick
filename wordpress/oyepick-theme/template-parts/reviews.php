@@ -69,6 +69,7 @@ $review_link = $latest ? get_permalink( $latest[0]->get_id() ) . '#review_form_w
 					foreach ( $reviews as $r ) :
 						$rating   = (int) get_comment_meta( $r->comment_ID, 'rating', true );
 						$verified = function_exists( 'wc_review_is_from_verified_owner' ) && wc_review_is_from_verified_owner( $r->comment_ID );
+						$is_demo  = (bool) get_comment_meta( $r->comment_ID, '_oyepick_demo', true );
 						$prod     = wc_get_product( $r->comment_post_ID );
 						$initial  = mb_strtoupper( mb_substr( $r->comment_author, 0, 1 ) );
 						?>
@@ -77,7 +78,7 @@ $review_link = $latest ? get_permalink( $latest[0]->get_id() ) . '#review_form_w
 								<span class="rv-av"><?php echo esc_html( $initial ); ?></span>
 								<div>
 									<b><?php echo esc_html( $r->comment_author ); ?></b>
-									<?php if ( $verified ) : ?><span class="rv-ver"><?php echo oyepick_icon( 'check', 12 ); // phpcs:ignore ?><?php esc_html_e( 'Verified buyer', 'oyepick' ); ?></span><?php endif; ?>
+									<?php if ( $is_demo ) : ?><span class="rv-demo"><?php esc_html_e( 'Demo review', 'oyepick' ); ?></span><?php elseif ( $verified ) : ?><span class="rv-ver"><?php echo oyepick_icon( 'check', 12 ); // phpcs:ignore ?><?php esc_html_e( 'Verified buyer', 'oyepick' ); ?></span><?php endif; ?>
 									<small><?php echo esc_html( sprintf( __( '%s ago', 'oyepick' ), human_time_diff( strtotime( $r->comment_date_gmt . ' GMT' ) ) ) ); ?></small>
 								</div>
 								<?php echo $rating ? oyepick_stars( $rating ) : ''; // phpcs:ignore ?>

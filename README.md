@@ -53,3 +53,4 @@ wordpress/blueprint.json     WordPress Playground recipe used by the demo link
    - Set prices for **NOHON 22.5W** and **Solar 4-in-1** power banks. They currently show "Price on WhatsApp".
    - Check the 7 existing live-site products to avoid duplicates.
    - Add a note to the Privacy Policy that the purchase notification shows a buyer's first name and city.
+   - **Remove demo content before launch.** The staging/demo site has 3 test orders named "Demo" and 8 reviews by "Demo Reviewer" with a "Demo review" badge. They exist only to preview the layout. On the live store, never tick the demo option. If demo content was added, remove it with `wp oyepick remove-demo`, or run `oyepick_remove_demo_content()`.

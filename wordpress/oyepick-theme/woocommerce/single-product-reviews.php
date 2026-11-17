@@ -127,6 +127,7 @@ $reviews = get_comments(
 		foreach ( $reviews as $r ) :
 			$rating   = (int) get_comment_meta( $r->comment_ID, 'rating', true );
 			$verified = wc_review_is_from_verified_owner( $r->comment_ID );
+			$is_demo  = (bool) get_comment_meta( $r->comment_ID, '_oyepick_demo', true );
 			?>
 			<article class="op-rv-card" id="comment-<?php echo (int) $r->comment_ID; ?>">
 				<div class="top">
@@ -135,7 +136,7 @@ $reviews = get_comments(
 						<b><?php echo esc_html( $r->comment_author ); ?></b>
 						<small><?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $r->comment_date ) ) ); ?></small>
 					</div>
-					<?php if ( $verified ) : ?><span class="ver"><?php echo oyepick_icon( 'check', 12 ); // phpcs:ignore ?><?php esc_html_e( 'Verified buyer', 'oyepick' ); ?></span><?php endif; ?>
+					<?php if ( $is_demo ) : ?><span class="rv-demo"><?php esc_html_e( 'Demo review', 'oyepick' ); ?></span><?php elseif ( $verified ) : ?><span class="ver"><?php echo oyepick_icon( 'check', 12 ); // phpcs:ignore ?><?php esc_html_e( 'Verified buyer', 'oyepick' ); ?></span><?php endif; ?>
 				</div>
 				<?php if ( $rating ) : ?><?php echo oyepick_stars( $rating ); // phpcs:ignore ?><?php endif; ?>
 				<div class="txt"><?php echo wp_kses_post( wpautop( $r->comment_content ) ); ?></div>

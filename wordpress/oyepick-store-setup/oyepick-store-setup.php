@@ -213,6 +213,7 @@ function oyepick_setup_run( $args = array() ) {
 	/* ---------- Demo-only test orders (for previewing the purchase notification) ---------- */
 	if ( ! empty( $args['demo_orders'] ) ) {
 		$log[] = oyepick_setup_demo_orders();
+		$log[] = oyepick_setup_demo_reviews();
 	}
 
 	flush_rewrite_rules();
@@ -282,6 +283,79 @@ function oyepick_setup_demo_orders() {
 	return "Demo test orders created: $n (customer name 'Demo').";
 }
 
+/**
+ * Demo-only reviews so the review layout can be previewed on a staging site.
+ * Author "Demo Reviewer", flagged with _oyepick_demo (the theme shows a "Demo review" badge).
+ * Never use on the live store — remove with oyepick_remove_demo_content() / `wp oyepick remove-demo`.
+ */
+function oyepick_setup_demo_reviews() {
+	if ( get_option( 'oyepick_demo_reviews_done' ) ) {
+		return 'Demo reviews already exist.';
+	}
+	$rows = array(
+		array( 'OP-BUDS-PRO-9', 5, 'Sound is clear and the case is compact. Touch controls work well and pairing was quick.' ),
+		array( 'OP-BUDS-PRO-9', 4, 'Good value for the price. Battery lasts a full day of normal use.' ),
+		array( 'OP-BAROQUE-SILK', 5, 'The embroidery looks rich and the silk feels soft. Dupatta border is very neat.' ),
+		array( 'OP-BOSKI', 5, 'Fabric is soft and comfortable. Colour was the same as in the pictures.' ),
+		array( 'OP-K8-66W', 4, 'Charges my phone fast and the display shows the battery percentage clearly.' ),
+		array( 'OP-PINK-LAWN', 5, 'Print colours are bright and the lace work on the dupatta is lovely.' ),
+		array( 'OP-CABLE-KIT-60W', 4, 'Handy kit for travel, all adapters fit in the small case.' ),
+		array( 'OP-HAND-CUTTER', 3, 'Works well for onions and garlic. Needs a few extra pulls for harder vegetables.' ),
+	);
+	$n = 0;
+	foreach ( $rows as $i => $r ) {
+		$pid = wc_get_product_id_by_sku( $r[0] );
+		if ( ! $pid ) {
+			continue;
+		}
+		$cid = wp_insert_comment(
+			array(
+				'comment_post_ID'      => $pid,
+				'comment_author'       => 'Demo Reviewer',
+				'comment_author_email' => 'demo-review@example.com',
+				'comment_content'      => $r[2],
+				'comment_type'         => 'review',
+				'comment_approved'     => 1,
+				'comment_date'         => gmdate( 'Y-m-d H:i:s', time() - ( $i + 1 ) * 2 * DAY_IN_SECONDS ),
+			)
+		);
+		if ( $cid ) {
+			update_comment_meta( $cid, 'rating', $r[1] );
+			update_comment_meta( $cid, '_oyepick_demo', 1 );
+			WC_Comments::clear_transients( $pid );
+			$n++;
+		}
+	}
+	update_option( 'oyepick_demo_reviews_done', 1 );
+	return "Demo reviews created: $n (author 'Demo Reviewer', shown with a 'Demo review' badge).";
+}
+
+/**
+ * Removes every demo review and demo order created by this plugin.
+ */
+function oyepick_remove_demo_content() {
+	$removed = 0;
+	$ids     = get_comments( array( 'meta_key' => '_oyepick_demo', 'meta_value' => 1, 'fields' => 'ids', 'type' => 'review', 'status' => 'all' ) );
+	foreach ( $ids as $cid ) {
+		$pid = (int) get_comment( $cid )->comment_post_ID;
+		wp_delete_comment( $cid, true );
+		WC_Comments::clear_transients( $pid );
+		$removed++;
+	}
+	$orders = wc_get_orders( array( 'limit' => -1, 'meta_key' => '_oyepick_demo', 'meta_value' => 1, 'return' => 'ids', 'status' => 'any' ) );
+	foreach ( $orders as $oid ) {
+		$o = wc_get_order( $oid );
+		if ( $o ) {
+			$o->delete( true );
+			$removed++;
+		}
+	}
+	delete_option( 'oyepick_demo_reviews_done' );
+	delete_option( 'oyepick_demo_orders_done' );
+	delete_transient( 'oyepick_recent_orders' );
+	return "Removed $removed demo reviews/orders.";
+}
+
 /* ---------- Admin page: Tools → OyePick Setup ---------- */
 add_action(
 	'admin_menu',
@@ -305,7 +379,7 @@ function oyepick_setup_page() {
 		<?php endif; ?>
 		<form method="post">
 			<?php wp_nonce_field( 'oyepick_setup' ); ?>
-			<p><label><input type="checkbox" name="oyepick_demo_orders" value="1"> Also create 3 test orders named "Demo" so the purchase notification can be previewed — <strong>staging/demo sites only, never on the live store</strong>.</label></p>
+			<p><label><input type="checkbox" name="oyepick_demo_orders" value="1"> Also create demo content — 3 test orders named "Demo" and 8 "Demo review" reviews — so the purchase notification and reviews can be previewed — <strong>staging/demo sites only, never on the live store</strong>.</label></p>
 			<p><button class="button button-primary button-hero" name="oyepick_run" value="1">Run setup</button></p>
 		</form>
 	</div>
@@ -314,6 +388,12 @@ function oyepick_setup_page() {
 
 /* ---------- WP-CLI: wp oyepick setup [--demo-orders] ---------- */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	WP_CLI::add_command(
+		'oyepick remove-demo',
+		function () {
+			WP_CLI::success( oyepick_remove_demo_content() );
+		}
+	);
 	WP_CLI::add_command(
 		'oyepick setup',
 		function ( $args, $assoc ) {
