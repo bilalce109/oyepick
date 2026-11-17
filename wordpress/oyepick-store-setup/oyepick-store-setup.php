@@ -272,7 +272,7 @@ add_action(
 function oyepick_setup_page() {
 	$log = array();
 	if ( isset( $_POST['oyepick_run'] ) && check_admin_referer( 'oyepick_setup' ) && current_user_can( 'manage_woocommerce' ) ) {
-		$log = oyepick_setup_run();
+		$log = oyepick_setup_run( array( 'demo_orders' => ! empty( $_POST['oyepick_demo_orders'] ) ) );
 	}
 	?>
 	<div class="wrap">
@@ -284,6 +284,7 @@ function oyepick_setup_page() {
 		<?php endif; ?>
 		<form method="post">
 			<?php wp_nonce_field( 'oyepick_setup' ); ?>
+			<p><label><input type="checkbox" name="oyepick_demo_orders" value="1"> Also create 3 test orders named "Demo" so the purchase notification can be previewed — <strong>staging/demo sites only, never on the live store</strong>.</label></p>
 			<p><button class="button button-primary button-hero" name="oyepick_run" value="1">Run setup</button></p>
 		</form>
 	</div>
