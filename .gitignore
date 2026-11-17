@@ -1,0 +1,16 @@
+# Private: WhatsApp chat exports from the client (contain phone numbers & chat)
+*.zip
+*.opus
+*.mp4.tmp
+
+# Old drafts / working files not needed in the repo
+client_web.html
+client_web_original_orange.html
+woocommerce-new-products.csv
+images/banners/
+images/videos/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
