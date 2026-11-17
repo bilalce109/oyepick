@@ -104,7 +104,7 @@ footer .logo-full{height:42px}
 .slider,.hero-side{min-width:0}
 /* Hero slider — light studio backdrop, brand ribbon, floating product cut-outs */
 .slider{position:relative;border-radius:24px;overflow:hidden;display:grid;min-height:480px;touch-action:pan-y;isolation:isolate}
-.slide{grid-area:1/1;position:relative;display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:10px;padding:48px 48px 84px 56px;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s;overflow:hidden}
+.slide{grid-area:1/1;position:relative;display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;gap:10px;padding:48px 48px 84px 56px;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s;overflow:hidden}
 .slide.on{opacity:1;visibility:visible;z-index:1}
 .slide.s-mint{background:linear-gradient(115deg,#f6faf9 0%,#e5f1ee 55%,#cfe6e1 100%);color:var(--brand)}
 .slide.s-sand{background:linear-gradient(115deg,#fcfaf6 0%,#f4eadc 55%,#ebdac0 100%);color:#c98a3e}
@@ -120,7 +120,7 @@ footer .logo-full{height:42px}
 .ribbon{position:absolute;z-index:0;right:-40px;top:-30px;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%);height:calc(100% + 60px);pointer-events:none}
 .stage{position:relative;z-index:2;height:400px}
 .stage::after{content:"";position:absolute;left:12%;right:12%;bottom:-6px;height:34px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(20,35,37,.28),transparent 70%);filter:blur(4px);z-index:0}
-.stage img{position:absolute;z-index:1;height:auto;filter:drop-shadow(0 26px 26px rgba(20,35,37,.22));opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.stage img{position:absolute;z-index:1;height:auto;filter:drop-shadow(0 26px 26px rgba(20,35,37,.22));opacity:0;transform:translateY(24px);transition:opacity .45s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
 .slide.on .stage img{opacity:1;transform:none}
 .slide.on .stage img:nth-of-type(2){transition-delay:.12s}
 .slide.on .stage img:nth-of-type(3){transition-delay:.24s}
@@ -141,7 +141,7 @@ footer .logo-full{height:42px}
 .dots{display:flex;gap:8px}
 .dots button{width:34px;height:5px;border-radius:5px;border:0;padding:0;background:rgba(28,37,38,.15);overflow:hidden;position:relative}
 .dots button i{position:absolute;inset:0;width:0;background:var(--brand);border-radius:5px}
-.dots button.on i{animation:fill 6s linear forwards}
+.dots button.on i{animation:fill 2s linear forwards}
 .slider.paused .dots button.on i{animation-play-state:paused}
 @keyframes fill{to{width:100%}}
 .arrows{display:flex;gap:8px}
@@ -923,13 +923,11 @@ addEventListener('keydown', e => e.key === 'Escape' && closeAll());
     i = (n + slides.length) % slides.length;
     slides.forEach((s, k) => s.classList.toggle('on', k === i));
     dotEls.forEach((d, k) => { d.classList.remove('on'); void d.offsetWidth; d.classList.toggle('on', k === i); });
-    clearTimeout(timer); timer = setTimeout(() => !slider.classList.contains('paused') && go(i + 1), 6000);
+    clearTimeout(timer); timer = setTimeout(() => go(i + 1), 2000);
   }
   dotEls.forEach((d, k) => d.onclick = () => go(k));
   document.getElementById('prev').onclick = () => go(i - 1);
   document.getElementById('next').onclick = () => go(i + 1);
-  slider.addEventListener('mouseenter', () => { slider.classList.add('paused'); clearTimeout(timer); });
-  slider.addEventListener('mouseleave', () => { slider.classList.remove('paused'); go(i); });
   let x0 = null;
   slider.addEventListener('touchstart', e => x0 = e.touches[0].clientX, {passive:true});
   slider.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 45) go(i + (dx < 0 ? 1 : -1)); x0 = null; });

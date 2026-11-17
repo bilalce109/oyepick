@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'OYEPICK_VERSION', '1.1.3' );
+define( 'OYEPICK_VERSION', '1.1.5' );
 define( 'OYEPICK_URI', get_template_directory_uri() );
 define( 'OYEPICK_DIR', get_template_directory() );
 

@@ -27,13 +27,11 @@
       slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
       dotEls.forEach(function (d, k) { d.classList.remove('on'); void d.offsetWidth; d.classList.toggle('on', k === i); });
       clearTimeout(timer);
-      timer = setTimeout(function () { if (!slider.classList.contains('paused')) go(i + 1); }, 6000);
+      timer = setTimeout(function () { go(i + 1); }, 2000);
     };
     dotEls.forEach(function (d, k) { d.addEventListener('click', function () { go(k); }); });
     document.getElementById('prev').addEventListener('click', function () { go(i - 1); });
     document.getElementById('next').addEventListener('click', function () { go(i + 1); });
-    slider.addEventListener('mouseenter', function () { slider.classList.add('paused'); clearTimeout(timer); });
-    slider.addEventListener('mouseleave', function () { slider.classList.remove('paused'); go(i); });
     slider.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
     slider.addEventListener('touchend', function (e) {
       if (x0 === null) return;

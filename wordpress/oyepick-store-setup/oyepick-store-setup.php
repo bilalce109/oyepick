@@ -159,6 +159,9 @@ function oyepick_setup_run( $args = array() ) {
 				$att[] = $aid;
 			}
 		}
+		if ( $att && ! empty( $p['bg'] ) && isset( $att[ $p['bg'] - 1 ] ) ) {
+			update_post_meta( $id, '_oyepick_bg_id', $att[ $p['bg'] - 1 ] );
+		}
 		if ( $att ) {
 			$prod = wc_get_product( $id );
 			$prod->set_image_id( array_shift( $att ) );

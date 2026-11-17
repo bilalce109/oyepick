@@ -355,3 +355,15 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 
 /* Demo review badge (staging/demo content only) */
 .rv-demo{display:inline-flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#8a5a1c;background:#f5e7d3;padding:3px 9px;border-radius:999px;margin:3px 0}
+
+/* Product image backdrop */
+.single-product .wc-main{position:relative}
+.op-product-bg{position:absolute;z-index:0;top:0;left:50%;width:100vw;transform:translateX(-50%);height:min(980px,100%);overflow:hidden;pointer-events:none}
+.op-product-bg span{position:absolute;inset:-60px;background-size:cover;background-position:center 35%;filter:blur(22px) saturate(1.45);opacity:.6;transform:scale(1.08)}
+.op-product-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.42) 60%,#fff 100%),linear-gradient(90deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.35) 100%)}
+.single-product .wc-main > *:not(.op-product-bg){position:relative;z-index:1}
+.single-product div.product .woocommerce-product-gallery{box-shadow:0 30px 60px -30px rgba(20,35,37,.35)}
+.single-product .op-trust-mini,.single-product .op-colours li{background:rgba(255,255,255,.88)}
+.single-product .op-trust-mini{backdrop-filter:blur(6px)}
+@media (max-width:860px){.op-product-bg{height:760px}.op-product-bg span{filter:blur(18px) saturate(1.35)}}
+.single-product .summary .product_title,.single-product .summary .price{text-shadow:0 1px 0 rgba(255,255,255,.6)}

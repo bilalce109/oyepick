@@ -163,3 +163,21 @@ add_filter(
 	10,
 	2
 );
+
+/* ---------- Single product: soft product-image backdrop behind the top section ---------- */
+add_action(
+	'woocommerce_before_single_product',
+	function () {
+		global $product;
+		if ( ! $product || ! $product->get_image_id() ) {
+			return;
+		}
+		// Optional: a specific (more colourful) gallery photo chosen for the backdrop.
+		$bg_id = (int) get_post_meta( $product->get_id(), '_oyepick_bg_id', true );
+		$src   = wp_get_attachment_image_url( $bg_id ? $bg_id : $product->get_image_id(), 'large' );
+		if ( $src ) {
+			echo '<div class="op-product-bg" aria-hidden="true"><span style="background-image:url(' . esc_url( $src ) . ')"></span></div>';
+		}
+	},
+	1
+);

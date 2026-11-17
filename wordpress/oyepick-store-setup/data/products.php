@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 return array(
 	array(
 		'sku'      => 'OP-BUDS-PRO-9',
+		'bg'       => 2,
 		'name'     => 'Buds Pro 9 TWS Wireless Earbuds',
 		'price'    => '1750',
 		'cats'     => array( 'audio' ),
@@ -22,6 +23,7 @@ return array(
 	),
 	array(
 		'sku'      => 'OP-BAROQUE-SILK',
+		'bg'       => 3,
 		'name'     => 'Baroque Embroidered Silk Collection – 3-Piece with Accessories',
 		'price'    => '3850',
 		'cats'     => array( 'women' ),
@@ -33,6 +35,7 @@ return array(
 	),
 	array(
 		'sku'      => 'OP-K8-66W',
+		'bg'       => 2,
 		'name'     => 'FoneStop K8 66W Super Fast Power Bank 20,000mAh',
 		'price'    => '3600',
 		'cats'     => array( 'chargers-power-banks' ),
@@ -54,6 +57,7 @@ return array(
 	),
 	array(
 		'sku'    => 'OP-SOLAR-4IN1',
+		'bg'       => 3,
 		'name'   => 'Solar-Powered 4-in-1 Multifunctional Power Bank',
 		'price'  => '',
 		'cats'   => array( 'chargers-power-banks' ),
@@ -64,6 +68,7 @@ return array(
 	),
 	array(
 		'sku'    => 'OP-PINK-LAWN',
+		'bg'       => 2,
 		'name'   => 'Pink Tye & Dye 3-Piece Suit – Digital Lawn with Bamber Chiffon Dupatta',
 		'price'  => '4200',
 		'cats'   => array( 'women' ),
@@ -73,6 +78,7 @@ return array(
 	),
 	array(
 		'sku'    => 'OP-MAG-HOLDER',
+		'bg'       => 3,
 		'name'   => 'Pocket Magnetic Suction Base Round Mobile Holder',
 		'price'  => '750',
 		'cats'   => array( 'mobile-accessories' ),
@@ -82,6 +88,7 @@ return array(
 	),
 	array(
 		'sku'    => 'OP-NOHON-10K',
+		'bg'       => 3,
 		'name'   => 'NOHON 22.5W Fast Charging Power Bank 10,000mAh',
 		'price'  => '',
 		'cats'   => array( 'chargers-power-banks' ),
@@ -92,6 +99,7 @@ return array(
 	),
 	array(
 		'sku'    => 'OP-CABLE-KIT-60W',
+		'bg'       => 2,
 		'name'   => '60W Multifunctional Fast Charging Cable Kit',
 		'price'  => '799',
 		'cats'   => array( 'mobile-accessories' ),
@@ -119,6 +127,7 @@ return array(
 	),
 	array(
 		'sku'    => 'OP-HAND-CUTTER',
+		'bg'       => 2,
 		'name'   => 'EOTIA Manual Hand Cutter – Pull-Cord Food Chopper',
 		'price'  => '1200',
 		'cats'   => array( 'kitchen-tools' ),
