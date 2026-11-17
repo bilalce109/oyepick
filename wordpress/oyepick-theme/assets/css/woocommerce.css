@@ -367,3 +367,94 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .single-product .op-trust-mini{backdrop-filter:blur(6px)}
 @media (max-width:860px){.op-product-bg{height:760px}.op-product-bg span{filter:blur(18px) saturate(1.35)}}
 .single-product .summary .product_title,.single-product .summary .price{text-shadow:0 1px 0 rgba(255,255,255,.6)}
+
+/* =================== Mobile fixes (v1.1.6) =================== */
+/* Shop/category grids: WooCommerce's small-screen CSS gives li.product width:48% + float — neutralise it inside our grid */
+.woocommerce ul.products.op-grid > li.op-cell,.woocommerce-page ul.products.op-grid > li.op-cell,ul.products.op-grid[class*=columns-] > li.op-cell{width:100% !important;float:none !important;margin:0 !important;clear:none !important}
+.op-cell .op-card{height:100%}
+
+@media (max-width:860px){
+  ul.products.op-grid,.op-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:12px !important}
+  .woocommerce-result-count{float:none !important;margin:0 0 8px !important}
+  .woocommerce-ordering{float:none !important;margin:0 0 18px !important}
+  .woocommerce-ordering select{width:100%}
+}
+@media (max-width:560px){
+  /* product card */
+  .op-card .body{padding:12px 12px 14px !important}
+  .op-card .cat-name{font-size:10.5px;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+  .op-card .body h3{font-size:14px !important;margin:4px 0 6px !important}
+  .op-card .body .note{display:none}
+  .op-card .card-rating{margin:0 0 8px}
+  .op-card .card-rating .stars i{font-size:12px}
+  .op-card .foot{flex-direction:column !important;align-items:stretch !important;gap:8px}
+  .op-card .foot .price{font-size:16px !important}
+  .op-card .foot .button.add,.op-card .foot a.add,.op-card .foot .add{width:100% !important;height:38px !important;padding:0 10px !important;justify-content:center !important;font-size:13px !important}
+  .op-card .foot .add span{display:inline !important}
+  .op-card .tag{top:8px;left:8px;font-size:10.5px;padding:3px 8px}
+  .op-card .wish{display:none}
+
+  /* hero slider */
+  .slider{min-height:0;border-radius:20px}
+  .slide{padding:18px 18px 74px !important;gap:2px !important}
+  .stage{height:230px !important;max-width:340px}
+  .shot,.stage::after{bottom:-2px}
+  .slide h1,.slide h2{font-size:27px !important;margin:6px 0 8px !important}
+  .slide p{font-size:14.5px}
+  .slide .now{margin-top:12px}
+  .slide .now b{font-size:24px}
+  .slide .btns{margin-top:16px;gap:10px}
+  .slide .btns .btn{height:46px;padding:0 18px;font-size:14px;flex:1;justify-content:center}
+  .stage .tagchip{top:4%;right:2%;font-size:11.5px;padding:7px 10px}
+  .stage .tagchip i{width:24px;height:24px}
+  .slider-ui{left:18px !important;right:18px !important;bottom:18px !important}
+  .arrows button{width:38px;height:38px}
+  .ribbon{opacity:.75}
+
+  /* side tiles */
+  .tile{min-height:190px;padding:22px}
+  .tile h3{font-size:20px}
+  .tile.t2 .cut{width:42%;max-height:62%;right:4%;bottom:10%}
+  .tile.t1 .cut.m1{height:88%;right:22%}
+  .tile.t1 .cut.m2{height:84%}
+
+  /* category cards */
+  .cat{min-height:320px;padding:22px}
+  .cat h3{font-size:21px}
+  .cat ul{max-width:100%}
+  .cat .bgword{font-size:58px;opacity:.55}
+  .c-gadgets .cut{height:46%;right:2%;bottom:3%}
+  .c-apparel .cut.m1{height:62%}
+  .c-apparel .cut.m2{height:58%}
+  .c-home .cut{width:64%}
+  .cat .go{padding:9px 14px;font-size:13px}
+
+  /* sections */
+  .section{padding:48px 0}
+  .sec-head{margin-bottom:22px}
+  .sec-head h2{font-size:24px}
+  .tabs{gap:6px}
+  .tabs button{padding:7px 13px;font-size:13px}
+  .promo .txt{padding:30px 22px 6px}
+  .promo .stats{gap:18px;flex-wrap:wrap}
+  .promo .stats b{font-size:21px}
+  .promo .pics{min-height:280px}
+  .box{padding:26px 20px}
+  .rv-summary{padding:24px}
+  .rv-avg{font-size:52px}
+  .float-wa{width:50px;height:50px;right:14px;bottom:14px}
+  .sale-pop{left:10px;bottom:10px;width:calc(100% - 84px);padding:8px 28px 8px 8px}
+  .sale-pop img{width:46px;height:46px}
+  .sale-pop .t{font-size:12px}
+  .sale-pop .t a{max-width:180px}
+}
+@media (max-width:380px){
+  ul.products.op-grid,.op-grid{gap:10px !important}
+  .slide .btns .btn{padding:0 12px;font-size:13px}
+}
+@media (max-width:560px){.tile h3{font-size:19px;max-width:60%}.tile p{max-width:56%}.tile.t2 .cut{width:36%;max-height:56%;right:5%;bottom:12%}}
+
+/* Cart/checkout blocks must stay inside the page container on mobile */
+.wp-block-woocommerce-checkout,.wp-block-woocommerce-cart,.wc-block-components-sidebar-layout{max-width:100% !important;width:100% !important;margin-left:0 !important;margin-right:0 !important;box-sizing:border-box}
+.wc-block-components-sidebar-layout .wc-block-components-main,.wc-block-components-sidebar-layout .wc-block-components-sidebar{box-sizing:border-box}
+@media (max-width:700px){.wc-block-components-sidebar-layout .wc-block-components-main,.wc-block-components-sidebar-layout .wc-block-components-sidebar{width:100% !important;padding-left:0 !important;padding-right:0 !important}.page-main{overflow-x:clip}}
