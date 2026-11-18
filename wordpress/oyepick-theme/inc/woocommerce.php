@@ -181,3 +181,13 @@ add_action(
 	},
 	1
 );
+
+/**
+ * Hide the big "Shop" heading on the main shop page (category pages keep their name).
+ */
+add_filter(
+	'woocommerce_show_page_title',
+	function ( $show ) {
+		return is_shop() ? false : $show;
+	}
+);
