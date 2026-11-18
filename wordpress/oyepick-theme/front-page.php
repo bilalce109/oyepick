@@ -243,7 +243,11 @@ $products = function_exists( 'wc_get_products' ) ? wc_get_products( array( 'stat
 			<div class="reveal"><span class="ic"><?php echo oyepick_icon( 'cash', 24 ); // phpcs:ignore ?></span><h3><?php esc_html_e( 'Pay on delivery', 'oyepick' ); ?></h3><p><?php esc_html_e( 'No advance payment needed. Check your parcel and pay in cash at your door.', 'oyepick' ); ?></p></div>
 			<div class="reveal"><span class="ic"><?php echo oyepick_icon( 'star', 24 ); // phpcs:ignore ?></span><h3><?php esc_html_e( 'Handpicked products', 'oyepick' ); ?></h3><p><?php esc_html_e( 'We only stock items we would use ourselves, from trending fashion to everyday gadgets.', 'oyepick' ); ?></p></div>
 			<div class="reveal"><span class="ic"><?php echo oyepick_icon( 'truck', 24 ); // phpcs:ignore ?></span><h3><?php esc_html_e( 'Fast nationwide shipping', 'oyepick' ); ?></h3><p><?php esc_html_e( 'Orders dispatched quickly from Karachi to cities all over Pakistan.', 'oyepick' ); ?></p></div>
-			<div class="reveal"><span class="ic"><?php echo oyepick_icon( 'pin', 24 ); // phpcs:ignore ?></span><h3><?php esc_html_e( 'Real shop in Karachi', 'oyepick' ); ?></h3><p><?php esc_html_e( 'Visit us at Maheen Arcade, Bahadurabad. A real store you can trust.', 'oyepick' ); ?></p></div>
+			<?php if ( oyepick_opt( 'address' ) ) : ?>
+				<div class="reveal"><span class="ic"><?php echo oyepick_icon( 'pin', 24 ); // phpcs:ignore ?></span><h3><?php esc_html_e( 'Visit our shop', 'oyepick' ); ?></h3><p><?php echo esc_html( oyepick_opt( 'address' ) ); ?></p></div>
+			<?php else : ?>
+				<div class="reveal"><span class="ic"><?php echo oyepick_icon( 'chat', 24 ); // phpcs:ignore ?></span><h3><?php esc_html_e( 'Help on WhatsApp', 'oyepick' ); ?></h3><p><?php esc_html_e( 'Questions about size, colour or delivery? Message us on WhatsApp and we reply quickly.', 'oyepick' ); ?></p></div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>

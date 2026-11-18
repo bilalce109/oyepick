@@ -178,8 +178,8 @@ function oyepick_setup_run( $args = array() ) {
 
 	/* ---------- Pages ---------- */
 	$pages = array(
-		'about-us'   => array( 'About us', '<p>OyePick is an online store from Karachi bringing you trending styles, tech accessories and home essentials — with cash on delivery and fast delivery all over Pakistan.</p><p>Visit us: Shop No. 1, Maheen Arcade, BMCHS, Bahadurabad, Shaheed-e-Millat Road, Karachi.</p>' ),
-		'contact-us' => array( 'Contact us', '<p><strong>WhatsApp:</strong> <a href="https://wa.me/923233901906">0323 3901906</a></p><p><strong>Address:</strong> Shop No. 1, Maheen Arcade, BMCHS, Bahadurabad, Shaheed-e-Millat Road, Karachi</p><p>Follow us on <a href="https://www.instagram.com/oyepicstore">Instagram</a>, <a href="https://www.tiktok.com/@oyepick13">TikTok</a> and <a href="https://www.facebook.com/share/1A73b7x7w9/">Facebook</a>.</p>' ),
+		'about-us'   => array( 'About us', '<p>OyePick is an online store from Karachi bringing you trending styles, tech accessories and home essentials — with cash on delivery and fast delivery all over Pakistan.</p>' ),
+		'contact-us' => array( 'Contact us', '<p><strong>WhatsApp:</strong> <a href="https://wa.me/923233901906">0323 3901906</a></p><p>Follow us on <a href="https://www.instagram.com/oyepicstore">Instagram</a>, <a href="https://www.tiktok.com/@oyepick13">TikTok</a> and <a href="https://www.facebook.com/share/1A73b7x7w9/">Facebook</a>.</p>' ),
 	);
 	foreach ( $pages as $slug => $pg ) {
 		if ( ! get_page_by_path( $slug ) ) {

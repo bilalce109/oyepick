@@ -18,7 +18,7 @@ function oyepick_opt( $key ) {
 		'instagram'      => 'https://www.instagram.com/oyepicstore',
 		'facebook'       => 'https://www.facebook.com/share/1A73b7x7w9/',
 		'tiktok'         => 'https://www.tiktok.com/@oyepick13',
-		'address'        => 'Shop No. 1, Maheen Arcade, BMCHS, Bahadurabad, Shaheed-e-Millat Road, Karachi',
+		'address'        => '', // add later in Customizer → OyePick Store; footer/homepage show it automatically
 		'popup_enabled'  => 1,
 		'popup_interval' => 25,
 	);

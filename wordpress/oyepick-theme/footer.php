@@ -53,7 +53,7 @@ $address    = oyepick_opt( 'address' );
 				?>
 			</div>
 			<div>
-				<h5><?php esc_html_e( 'Visit our store', 'oyepick' ); ?></h5>
+				<h5><?php echo $address ? esc_html__( 'Visit our store', 'oyepick' ) : esc_html__( 'Order with confidence', 'oyepick' ); ?></h5>
 				<?php if ( $address ) : ?>
 					<a class="addr" href="<?php echo esc_url( 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $address ) ); ?>" target="_blank" rel="noopener">
 						<?php echo oyepick_icon( 'pin', 18 ); // phpcs:ignore ?><span><?php echo esc_html( $address ); ?></span>
