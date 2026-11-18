@@ -17,3 +17,6 @@ Thumbs.db
 
 # Built theme/plugin zips are needed by the Playground demo
 !dist/*.zip
+
+# UpdraftPlus backups (private: contain the database)
+backups/
