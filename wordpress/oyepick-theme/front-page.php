@@ -13,57 +13,7 @@ get_header();
 
 $c = 'cutouts/';
 
-$slides = array(
-	array(
-		'sku'     => 'OP-BUDS-PRO-9',
-		'theme'   => 's-mint',
-		'eyebrow' => __( 'Audio · New arrival', 'oyepick' ),
-		'title'   => __( 'Buds Pro 9 Wireless Earbuds', 'oyepick' ),
-		'text'    => __( 'ANC/ENC noise reduction, touch controls and a compact charging case.', 'oyepick' ),
-		'pill'    => __( 'Cash on delivery', 'oyepick' ),
-		'link'    => array( oyepick_cat_link( 'audio' ), __( 'Shop audio', 'oyepick' ) ),
-		'stage'   => 'st-buds',
-		'imgs'    => array( 'a' => 'buds-pro-9-box', 'b' => 'buds-pro-9-pair' ),
-		'chip'    => array( '♪', __( 'Black & Purple', 'oyepick' ) ),
-	),
-	array(
-		'sku'     => 'OP-BAROQUE-SILK',
-		'theme'   => 's-sand',
-		'eyebrow' => __( 'Women · Party wear', 'oyepick' ),
-		'title'   => __( 'Baroque Embroidered Silk', 'oyepick' ),
-		'text'    => __( 'Embroidered silk shirt, chiffon dupatta with embroidered border and silk trouser, with accessories.', 'oyepick' ),
-		'pill'    => __( '3-piece', 'oyepick' ),
-		'link'    => array( oyepick_cat_link( 'women' ), __( 'Shop women', 'oyepick' ) ),
-		'stage'   => 'st-baroque',
-		'imgs'    => array( 'a' => 'baroque-teal', 'b' => 'baroque-purple' ),
-		'chip'    => array( '✦', __( 'Teal & Purple', 'oyepick' ) ),
-	),
-	array(
-		'sku'     => 'OP-BOSKI',
-		'theme'   => 's-mint',
-		'eyebrow' => __( 'Men · Unstitched', 'oyepick' ),
-		'title'   => __( 'Premium Gents Boski Suits', 'oyepick' ),
-		'text'    => __( 'Soft, comfortable and classy Boski fabric in elegant colours. Perfect for every occasion.', 'oyepick' ),
-		'pill'    => __( 'Unstitched', 'oyepick' ),
-		'link'    => array( oyepick_cat_link( 'men' ), __( 'Shop men', 'oyepick' ) ),
-		'stage'   => 'st-boski',
-		'imgs'    => array( 'a' => 'boski-blue', 'b' => 'boski-white', 'c' => 'boski-khaki' ),
-		'chip'    => array( '✓', __( '5 colours', 'oyepick' ) ),
-	),
-	array(
-		'sku'     => 'OP-K8-66W',
-		'theme'   => 's-sand',
-		'eyebrow' => __( 'Power banks', 'oyepick' ),
-		'title'   => __( 'Stay charged, everywhere', 'oyepick' ),
-		'text'    => __( 'From the 66W FoneStop K8 to solar and compact 22.5W power banks. Power for every day.', 'oyepick' ),
-		'pill'    => __( 'FoneStop K8 · 66W', 'oyepick' ),
-		'link'    => array( oyepick_cat_link( 'chargers-power-banks' ), __( 'All power banks', 'oyepick' ) ),
-		'stage'   => 'st-power',
-		'imgs'    => array( 'a' => 'fonestop-k8-box', 'b' => 'solar-pair', 'c' => 'nohon-pair' ),
-		'chip'    => array( '⚡', __( '66W fast charge', 'oyepick' ) ),
-		'label'   => __( 'Add K8 to cart', 'oyepick' ),
-	),
-);
+$slides = oyepick_get_slides(); // edit in admin: Hero Slides
 ?>
 <main id="main">
 
@@ -79,7 +29,7 @@ $slides = array(
 			<div class="slider" id="slider" aria-roledescription="carousel" aria-label="<?php esc_attr_e( 'Featured products', 'oyepick' ); ?>">
 				<?php
 				foreach ( $slides as $i => $s ) :
-					$p   = oyepick_product( $s['sku'] );
+					$p   = $s['product'];
 					$tag = 0 === $i ? 'h1' : 'h2';
 					?>
 					<div class="slide <?php echo esc_attr( $s['theme'] . ( 0 === $i ? ' on' : '' ) ); ?>" aria-roledescription="slide" aria-label="<?php echo esc_attr( ( $i + 1 ) . ' / ' . count( $slides ) ); ?>">
@@ -89,18 +39,22 @@ $slides = array(
 							<<?php echo $tag; // phpcs:ignore ?>><?php echo esc_html( $s['title'] ); ?></<?php echo $tag; // phpcs:ignore ?>>
 							<p><?php echo esc_html( $s['text'] ); ?></p>
 							<?php if ( $p && '' !== $p->get_price() ) : ?>
-								<div class="now"><b><?php echo esc_html( oyepick_price( $p ) ); ?></b><span><?php echo esc_html( $s['pill'] ); ?></span></div>
+								<div class="now"><b><?php echo esc_html( oyepick_price( $p ) ); ?></b><?php if ( $s['pill'] ) : ?><span><?php echo esc_html( $s['pill'] ); ?></span><?php endif; ?></div>
 							<?php endif; ?>
 							<div class="btns">
-								<?php echo oyepick_add_to_cart_button( $p, $s['label'] ?? __( 'Add to cart', 'oyepick' ) ); // phpcs:ignore ?>
-								<a href="<?php echo esc_url( $s['link'][0] ); ?>" class="btn btn-outline"><?php echo esc_html( $s['link'][1] ); ?></a>
+								<?php if ( $p ) : ?>
+									<?php echo oyepick_add_to_cart_button( $p, $s['label'] ); // phpcs:ignore ?>
+									<?php if ( $s['link'][1] ) : ?><a href="<?php echo esc_url( $s['link'][0] ); ?>" class="btn btn-outline"><?php echo esc_html( $s['link'][1] ); ?></a><?php endif; ?>
+								<?php else : ?>
+									<a href="<?php echo esc_url( $s['link'][0] ); ?>" class="btn btn-primary"><?php echo esc_html( $s['link'][1] ? $s['link'][1] : __( 'Shop now', 'oyepick' ) ); ?></a>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="stage <?php echo esc_attr( $s['stage'] ); ?>">
-							<?php foreach ( $s['imgs'] as $cls => $file ) : ?>
-								<img class="<?php echo esc_attr( $cls ); ?>" src="<?php echo esc_url( oyepick_img( $c . $file . '.webp' ) ); ?>" alt="<?php echo esc_attr( $s['title'] ); ?>" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?>>
+							<?php foreach ( $s['imgs'] as $cls => $src ) : ?>
+								<img class="<?php echo esc_attr( $cls ); ?>" src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $s['title'] ); ?>" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?>>
 							<?php endforeach; ?>
-							<div class="tagchip"><i><?php echo esc_html( $s['chip'][0] ); ?></i><?php echo esc_html( $s['chip'][1] ); ?></div>
+							<?php if ( $s['chip'][1] ) : ?><div class="tagchip"><?php if ( $s['chip'][0] ) : ?><i><?php echo esc_html( $s['chip'][0] ); ?></i><?php endif; ?><?php echo esc_html( $s['chip'][1] ); ?></div><?php endif; ?>
 						</div>
 					</div>
 				<?php endforeach; ?>
