@@ -44,6 +44,37 @@ add_action(
 		$phpmailer->setFrom( OYEPICK_SMTP_USER, $name, false );
 	}
 );
+/**
+ * Hardening: don't expose admin usernames (author archives, ?author=N, users sitemap, public REST users list).
+ */
+add_filter(
+	'wp_sitemaps_add_provider',
+	function ( $provider, $name ) {
+		return 'users' === $name ? false : $provider;
+	},
+	10,
+	2
+);
+add_action(
+	'template_redirect',
+	function () {
+		if ( is_author() || isset( $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			wp_safe_redirect( home_url( '/' ), 301 );
+			exit;
+		}
+	},
+	1
+);
+add_filter(
+	'rest_endpoints',
+	function ( $endpoints ) {
+		if ( ! is_user_logged_in() ) {
+			unset( $endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+		}
+		return $endpoints;
+	}
+);
+
 add_filter(
 	'wp_mail_from',
 	function ( $from ) {

@@ -498,3 +498,19 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
   .st-power .b{width:42%;left:47%;bottom:0}
   .st-power .c{height:62%;right:0;bottom:6%}
 }
+
+/* =================== Mobile side menu: social + WhatsApp buttons (v1.3.5) =================== */
+.mnav .logo{display:inline-block;border-bottom:0;padding:0}
+.mnav h4{margin:24px 0 10px}
+.mnav .m-soc{display:flex;flex-wrap:wrap;gap:8px}
+.mnav .m-soc a{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:14px;font-weight:600;line-height:1}
+.mnav .m-soc a svg{flex:none;color:var(--brand)}
+.mnav .m-soc a:active{background:var(--bg-2)}
+.mnav .m-wa{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0 8px;padding:13px 16px;border:0;border-radius:14px;background:#1f8f4e;color:#fff !important;font-weight:700;font-size:15px}
+.mnav .m-wa svg{flex:none}
+/* floating WhatsApp button would sit on top of the open menu / cart */
+.menu-open .float-wa,.cart-open .float-wa{opacity:0;pointer-events:none}
+
+/* =================== QA fixes (v1.3.6) =================== */
+/* 100vw backdrops include the desktop scrollbar width -> never allow sideways scroll (clip keeps sticky header working) */
+@supports (overflow:clip){html,body{overflow-x:clip}}

@@ -41,7 +41,7 @@ $address    = oyepick_opt( 'address' );
 					echo '<ul>';
 					foreach ( array( 'about-us' => __( 'About us', 'oyepick' ), 'contact-us' => __( 'Contact us', 'oyepick' ), 'privacy-policy' => __( 'Privacy Policy', 'oyepick' ) ) as $slug => $label ) {
 						$page = get_page_by_path( $slug );
-						if ( $page ) {
+						if ( $page && 'publish' === $page->post_status ) {
 							echo '<li><a href="' . esc_url( get_permalink( $page ) ) . '">' . esc_html( $label ) . '</a></li>';
 						}
 					}
@@ -99,11 +99,20 @@ $address    = oyepick_opt( 'address' );
 		oyepick_fallback_menu( 'm-menu' );
 	}
 	?>
-	<div class="f-soc" style="margin-top:22px">
-		<?php foreach ( array( 'instagram', 'facebook', 'tiktok' ) as $k ) : ?>
-			<?php if ( oyepick_opt( $k ) ) : ?><a href="<?php echo esc_url( oyepick_opt( $k ) ); ?>" aria-label="<?php echo esc_attr( ucfirst( $k ) ); ?>" target="_blank" rel="noopener"><?php echo oyepick_social_icon( $k ); // phpcs:ignore ?></a><?php endif; ?>
-		<?php endforeach; ?>
+	<h4><?php esc_html_e( 'Follow us', 'oyepick' ); ?></h4>
+	<div class="m-soc">
+		<?php
+		$labels = array( 'instagram' => 'Instagram', 'facebook' => 'Facebook', 'tiktok' => 'TikTok' );
+		foreach ( $labels as $k => $label ) :
+			if ( oyepick_opt( $k ) ) :
+				?>
+				<a class="m-soc-<?php echo esc_attr( $k ); ?>" href="<?php echo esc_url( oyepick_opt( $k ) ); ?>" target="_blank" rel="noopener"><?php echo oyepick_social_icon( $k, 17 ); // phpcs:ignore ?><span><?php echo esc_html( $label ); ?></span></a>
+				<?php
+			endif;
+		endforeach;
+		?>
 	</div>
+	<a class="m-wa" href="<?php echo esc_url( oyepick_wa_link() ); ?>" target="_blank" rel="noopener"><?php echo oyepick_social_icon( 'whatsapp', 18 ); // phpcs:ignore ?><span><?php esc_html_e( 'Order on WhatsApp', 'oyepick' ); ?></span></a>
 </aside>
 
 <?php wp_footer(); ?>

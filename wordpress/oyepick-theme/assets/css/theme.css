@@ -58,10 +58,10 @@ header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid 
 .logo-mark{width:42px;height:42px;flex:none;display:block;filter:drop-shadow(0 6px 10px rgba(29,92,99,.25))}
 .logo-text{font-weight:800;font-size:25px;color:var(--ink);letter-spacing:-.035em;line-height:1}
 .logo-text b{color:var(--brand)}
-.search{flex:1;max-width:560px;display:flex;align-items:center;background:var(--bg-2);border:1.5px solid var(--line);border-radius:999px;padding:4px 4px 4px 18px;transition:.2s}
-.search:focus-within{border-color:var(--brand);background:#fff}
-.search input{flex:1;border:0;background:none;font:inherit;font-size:15px;outline:none;color:var(--ink);min-width:0}
-.search button{border:0;background:var(--brand);color:#fff;width:40px;height:40px;border-radius:50%;display:grid;place-items:center}
+form.search{flex:1;max-width:560px;display:flex;align-items:center;background:var(--bg-2);border:1.5px solid var(--line);border-radius:999px;padding:4px 4px 4px 18px;transition:.2s}
+form.search:focus-within{border-color:var(--brand);background:#fff}
+form.search input{flex:1;border:0;background:none;font:inherit;font-size:15px;outline:none;color:var(--ink);min-width:0}
+form.search button{border:0;background:var(--brand);color:#fff;width:40px;height:40px;border-radius:50%;display:grid;place-items:center}
 .head-icons{display:flex;gap:6px;margin-left:auto;align-items:center}
 .icon-btn{position:relative;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:0;background:none;color:var(--ink);transition:.2s}
 .icon-btn:hover{background:var(--bg-2)}
@@ -339,7 +339,7 @@ footer a:hover{color:#fff}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:860px){
-  .nav,.topbar .social,.search-desk{display:none}
+  .nav,.topbar .social,form.search.search-desk{display:none}
   .menu-btn{display:grid}
   .head{gap:10px;height:66px}
   .logo-mark{width:36px;height:36px}
