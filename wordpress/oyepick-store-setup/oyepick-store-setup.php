@@ -16,6 +16,42 @@ defined( 'ABSPATH' ) || exit;
 define( 'OYEPICK_SETUP_DIR', plugin_dir_path( __FILE__ ) );
 
 /**
+ * Send all site email through SMTP when wp-config.php defines the OYEPICK_SMTP_* constants.
+ * Keeps the mailbox password out of the database and out of this repository:
+ *
+ *   define( 'OYEPICK_SMTP_HOST', 'smtp.hostinger.com' );
+ *   define( 'OYEPICK_SMTP_PORT', 465 );            // 465 = SSL, 587 = TLS
+ *   define( 'OYEPICK_SMTP_USER', 'info@oyepick.pk' );
+ *   define( 'OYEPICK_SMTP_PASS', '…' );
+ *   define( 'OYEPICK_SMTP_FROM_NAME', 'OyePick' );  // optional
+ */
+add_action(
+	'phpmailer_init',
+	function ( $phpmailer ) {
+		if ( ! defined( 'OYEPICK_SMTP_HOST' ) || ! defined( 'OYEPICK_SMTP_USER' ) || ! defined( 'OYEPICK_SMTP_PASS' ) ) {
+			return;
+		}
+		$port = defined( 'OYEPICK_SMTP_PORT' ) ? (int) OYEPICK_SMTP_PORT : 465;
+		$phpmailer->isSMTP();
+		$phpmailer->Host       = OYEPICK_SMTP_HOST;
+		$phpmailer->Port       = $port;
+		$phpmailer->SMTPAuth   = true;
+		$phpmailer->SMTPSecure = 465 === $port ? 'ssl' : 'tls';
+		$phpmailer->Username   = OYEPICK_SMTP_USER;
+		$phpmailer->Password   = OYEPICK_SMTP_PASS;
+		// The mailbox must be the sender, otherwise Hostinger rejects or spam-flags the message.
+		$name = defined( 'OYEPICK_SMTP_FROM_NAME' ) ? OYEPICK_SMTP_FROM_NAME : get_bloginfo( 'name' );
+		$phpmailer->setFrom( OYEPICK_SMTP_USER, $name, false );
+	}
+);
+add_filter(
+	'wp_mail_from',
+	function ( $from ) {
+		return defined( 'OYEPICK_SMTP_USER' ) ? OYEPICK_SMTP_USER : $from;
+	}
+);
+
+/**
  * Run the setup. Returns a log array.
  *
  * @param array $args { demo_orders: bool — create a few clearly-labelled test orders (demo sites only). }
