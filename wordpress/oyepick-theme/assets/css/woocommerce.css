@@ -523,3 +523,7 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
   .slider-ui{right:72px !important;gap:10px}
   .dots{gap:5px}
 }
+
+/* Slide whose picture is a normal photo (not a transparent cut-out): show it as a rounded card */
+.st-auto.st-photo img{border-radius:22px;box-shadow:0 24px 50px -18px rgba(20,35,37,.35);filter:none}
+.st-auto.st-photo.st-n1 .a{height:auto;width:auto;max-height:88%;max-width:92%;bottom:5%}
