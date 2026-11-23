@@ -6,7 +6,7 @@ WooCommerce website for **OyePick**, a Karachi store selling apparel, gadgets an
 
 | What | Link |
 |---|---|
-| **Live staging store (recommended).** Full WordPress + WooCommerce on real hosting. | [corruptioninsindheducation.com/oyepick](https://corruptioninsindheducation.com/oyepick/) |
+| **Live staging store (recommended).** Full WordPress + WooCommerce on real hosting. | [oyepick.pk](https://oyepick.pk/) |
 | **Full WordPress + WooCommerce demo.** Real add to cart, cart drawer, checkout (COD), product reviews and purchase notifications. Opens a private WordPress site in your browser. First load takes about 1–2 minutes. | [Open live WordPress demo](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bilalce109/oyepick/main/wordpress/blueprint.json) |
 | **Design preview.** A static homepage that loads instantly. | [Open design preview](https://bilalce109.github.io/oyepick/) |
 
