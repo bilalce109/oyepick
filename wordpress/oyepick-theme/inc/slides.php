@@ -152,7 +152,7 @@ function oyepick_slide_metabox( $post ) {
 		echo '</div>';
 		$row( __( 'Images (1 to 3)', 'oyepick' ), ob_get_clean(), __( 'Best: product photos with a transparent background (PNG/WebP cut-outs). Normal photos also work.', 'oyepick' ) );
 
-		$row( __( 'Badge', 'oyepick' ), '<input type="text" name="_op_chip_icon" value="' . esc_attr( $v['_op_chip_icon'] ) . '" style="width:60px" placeholder="✓"> ' . '<input type="text" name="_op_chip_text" value="' . esc_attr( $v['_op_chip_text'] ) . '" style="width:260px" placeholder="5 colours">', __( 'Small white tag on the picture (icon/emoji + text). Leave empty to hide.', 'oyepick' ) );
+		$row( __( 'Badge', 'oyepick' ), '<input type="text" name="_op_chip_icon" value="' . esc_attr( $v['_op_chip_icon'] ) . '" style="width:60px" placeholder="✓"> ' . '<input type="text" name="_op_chip_text" value="' . esc_attr( $v['_op_chip_text'] ) . '" style="width:260px" placeholder="5 colours">', __( 'Small badge shown under the description (icon/emoji + text). Leave empty to hide.', 'oyepick' ) );
 
 		$col = '';
 		foreach ( array( 'mint' => __( 'Mint green', 'oyepick' ), 'sand' => __( 'Sand / beige', 'oyepick' ) ) as $k => $l ) {

@@ -38,6 +38,7 @@ $slides = oyepick_get_slides(); // edit in admin: Hero Slides
 							<span class="eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<<?php echo $tag; // phpcs:ignore ?>><?php echo esc_html( $s['title'] ); ?></<?php echo $tag; // phpcs:ignore ?>>
 							<p><?php echo esc_html( $s['text'] ); ?></p>
+							<?php if ( $s['chip'][1] ) : ?><span class="feat"><?php if ( $s['chip'][0] ) : ?><i><?php echo esc_html( $s['chip'][0] ); ?></i><?php endif; ?><?php echo esc_html( $s['chip'][1] ); ?></span><?php endif; ?>
 							<?php if ( $p && '' !== $p->get_price() ) : ?>
 								<div class="now"><b><?php echo esc_html( oyepick_price( $p ) ); ?></b><?php if ( $s['pill'] ) : ?><span><?php echo esc_html( $s['pill'] ); ?></span><?php endif; ?></div>
 							<?php endif; ?>
@@ -54,7 +55,6 @@ $slides = oyepick_get_slides(); // edit in admin: Hero Slides
 							<?php foreach ( $s['imgs'] as $cls => $src ) : ?>
 								<img class="<?php echo esc_attr( $cls ); ?>" src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $s['title'] ); ?>" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?>>
 							<?php endforeach; ?>
-							<?php if ( $s['chip'][1] ) : ?><div class="tagchip"><?php if ( $s['chip'][0] ) : ?><i><?php echo esc_html( $s['chip'][0] ); ?></i><?php endif; ?><?php echo esc_html( $s['chip'][1] ); ?></div><?php endif; ?>
 						</div>
 					</div>
 				<?php endforeach; ?>

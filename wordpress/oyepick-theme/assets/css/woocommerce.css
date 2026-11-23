@@ -483,3 +483,13 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .st-auto.st-n3 .a{height:86%;width:auto;max-width:42%;left:2%;bottom:2%}
 .st-auto.st-n3 .b{height:98%;width:auto;max-width:46%;left:0;right:0;margin:0 auto;bottom:0;z-index:2}
 .st-auto.st-n3 .c{height:86%;width:auto;max-width:42%;right:2%;bottom:2%}
+
+/* =================== Hero badge moved off the picture (v1.3.1) =================== */
+.slide .copy .feat{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,.8);border:1px solid rgba(20,35,37,.08);border-radius:999px;padding:5px 14px 5px 5px;font-size:13px;font-weight:700;color:var(--ink);box-shadow:0 4px 14px rgba(20,35,37,.06)}
+.slide .copy .feat i{width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-style:normal;font-size:12px}
+.slide .copy .feat + .now{margin-top:12px}
+@media (max-width:560px){.slide .copy .feat{margin-top:10px;font-size:12px}.slide .copy .feat i{width:22px;height:22px}}
+/* K8 slide: new flat box photo is narrower, give it room so the other power banks overlap less */
+.st-power .a{height:90%;left:0;bottom:5%}
+.st-power .b{width:36%;left:52%;bottom:0}
+.st-power .c{height:56%;right:-2%;bottom:8%}
