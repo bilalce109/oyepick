@@ -527,3 +527,9 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 /* Slide whose picture is a normal photo (not a transparent cut-out): show it as a rounded card */
 .st-auto.st-photo img{border-radius:22px;box-shadow:0 24px 50px -18px rgba(20,35,37,.35);filter:none}
 .st-auto.st-photo.st-n1 .a{height:auto;width:auto;max-height:88%;max-width:92%;bottom:5%}
+/* long slide headings get a smaller size so every slide keeps the same height */
+.slide.is-long h1,.slide.is-long h2{font-size:clamp(24px,3vw,36px)}
+@media (max-width:560px){
+  .slide.is-long h1,.slide.is-long h2{font-size:22px}
+  .slide .btns .btn{flex:1 1 auto;white-space:normal;text-align:center;line-height:1.2}
+}

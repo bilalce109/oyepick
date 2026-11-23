@@ -107,13 +107,24 @@ function oyepick_slide_for_product( $product_id ) {
 	return $found ? (int) $found[0] : 0;
 }
 
+/**
+ * Short heading made from a product name: "EOTIA Manual Hand Cutter – Pull-Cord Food Chopper"
+ * becomes "EOTIA Manual Hand Cutter" (cut at a dash, bar or bracket).
+ */
+function oyepick_slide_short_title( $name ) {
+	$name  = trim( wp_strip_all_tags( html_entity_decode( (string) $name, ENT_QUOTES, 'UTF-8' ) ) );
+	$parts = preg_split( '/\s+[–—|-]\s+|\s+\(/u', $name );
+	$short = trim( $parts[0] );
+	return mb_strlen( $short ) >= 4 ? $short : $name;
+}
+
 /** Create a ready-to-show slide for a product. */
 function oyepick_slide_create_for_product( $product_id ) {
 	$id = wp_insert_post(
 		array(
 			'post_type'   => 'op_slide',
 			'post_status' => 'publish',
-			'post_title'  => get_post_field( 'post_title', $product_id, 'raw' ),
+			'post_title'  => oyepick_slide_short_title( get_post_field( 'post_title', $product_id, 'raw' ) ),
 			'menu_order'  => oyepick_slides_next_order(),
 		)
 	);
@@ -147,7 +158,7 @@ add_filter(
 			// phpcs:ignore WordPress.Security.NonceVerification -- only reads a product id to name the slide; meta is saved with a nonce check below.
 			$pid = isset( $_POST['_op_product'] ) ? absint( $_POST['_op_product'] ) : (int) get_post_meta( $id, '_op_product', true );
 			if ( $pid ) {
-				$data['post_title'] = wp_slash( get_post_field( 'post_title', $pid, 'raw' ) );
+				$data['post_title'] = wp_slash( oyepick_slide_short_title( get_post_field( 'post_title', $pid, 'raw' ) ) );
 			}
 		}
 		$was = $id ? get_post_status( $id ) : 'new';
@@ -190,7 +201,7 @@ function oyepick_slide_metabox( $post ) {
 	$products = get_posts(
 		array(
 			'post_type'   => 'product',
-			'post_status' => 'publish',
+			'post_status' => array( 'publish', 'private', 'draft', 'pending' ),
 			'numberposts' => -1,
 			'orderby'     => 'title',
 			'order'       => 'ASC',
@@ -258,7 +269,7 @@ function oyepick_slide_metabox( $post ) {
 	<div class="op-step" style="border-bottom:0">
 		<span class="n">3</span>
 		<div>
-			<h3><?php esc_html_e( 'Click the blue "Publish" button on the right', 'oyepick' ); ?></h3>
+			<h3><?php esc_html_e( 'Click the blue "Publish" button on the right (or "Update" when changing a slide)', 'oyepick' ); ?></h3>
 			<p><?php esc_html_e( 'The slide shows on the homepage straight away. That\'s it!', 'oyepick' ); ?></p>
 		</div>
 	</div>
@@ -520,6 +531,10 @@ add_action(
 			wp_die( esc_html__( 'Sorry, you cannot do that.', 'oyepick' ) );
 		}
 		$show = 'publish' !== get_post_status( $id );
+		if ( ! $show && 1 >= count( get_posts( array( 'post_type' => 'op_slide', 'post_status' => 'publish', 'numberposts' => 2, 'fields' => 'ids' ) ) ) ) {
+			wp_safe_redirect( admin_url( 'edit.php?post_type=op_slide&op_msg=last' ) );
+			exit;
+		}
 		wp_update_post( array( 'ID' => $id, 'post_status' => $show ? 'publish' : 'draft' ) );
 		wp_safe_redirect( admin_url( 'edit.php?post_type=op_slide&op_msg=' . ( $show ? 'shown' : 'hidden' ) ) );
 		exit;
@@ -539,6 +554,7 @@ add_action(
 			'moved'  => __( 'Order saved.', 'oyepick' ),
 			'shown'  => __( 'The slide is showing on the homepage again.', 'oyepick' ),
 			'hidden' => __( 'The slide is hidden from the homepage. Click "Show on homepage" to bring it back.', 'oyepick' ),
+			'last'   => __( 'This is the only slide on the homepage, so it cannot be hidden. Add another slide first.', 'oyepick' ),
 		);
 		$msg = sanitize_key( $_GET['op_msg'] ?? '' ); // phpcs:ignore
 		if ( isset( $msgs[ $msg ] ) ) {
@@ -575,7 +591,7 @@ function oyepick_get_slides() {
 			return get_post_meta( $sp->ID, $k, true );
 		};
 		$product = ( $m( '_op_product' ) && function_exists( 'wc_get_product' ) ) ? wc_get_product( (int) $m( '_op_product' ) ) : null;
-		if ( $product && 'publish' !== $product->get_status() ) {
+		if ( $m( '_op_product' ) && ( ! $product || 'publish' !== $product->get_status() ) ) {
 			continue; // product deleted or unpublished: skip its slide
 		}
 		$imgs  = array();
@@ -601,7 +617,8 @@ function oyepick_get_slides() {
 
 		$color = $m( '_op_color' );
 		if ( ! in_array( $color, array( 'mint', 'sand' ), true ) ) {
-			$color = count( $out ) % 2 ? 'sand' : 'mint';
+			$prev  = $out ? end( $out )['theme'] : '';
+			$color = 0 === strpos( $prev, 's-mint' ) ? 'sand' : 'mint'; // opposite of the slide before
 		}
 		$eyebrow = (string) $m( '_op_eyebrow' );
 		if ( '' === $eyebrow && $product ) {
@@ -620,13 +637,17 @@ function oyepick_get_slides() {
 		} elseif ( '' === $link_url ) {
 			$link_url = $product ? get_permalink( $product->get_id() ) : oyepick_shop_url();
 		}
-		$title = get_the_title( $sp );
+		$title = html_entity_decode( get_the_title( $sp ), ENT_QUOTES, 'UTF-8' );
 		if ( '' === trim( $title ) && $product ) {
-			$title = $product->get_name();
+			$title = oyepick_slide_short_title( $product->get_name() );
 		}
+		if ( '' === trim( $title ) && ! $product && ! $imgs ) {
+			continue; // empty slide
+		}
+		$long = mb_strlen( $title ) > 30 ? ' is-long' : '';
 
 		$out[] = array(
-			'theme'   => 'sand' === $color ? 's-sand' : 's-mint',
+			'theme'   => ( 'sand' === $color ? 's-sand' : 's-mint' ) . $long,
 			'eyebrow' => $eyebrow,
 			'title'   => $title,
 			'text'    => $text,

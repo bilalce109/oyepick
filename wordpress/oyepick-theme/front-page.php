@@ -13,7 +13,7 @@ get_header();
 
 $c = 'cutouts/';
 
-$slides = oyepick_get_slides(); // edit in admin: Hero Slides
+$slides = oyepick_get_slides(); // edit in admin: Homepage Slider
 ?>
 <main id="main">
 
