@@ -110,7 +110,7 @@ return array(
 	array(
 		'sku'    => 'OP-AIRBUDS-19',
 		'name'   => 'AIR BUDS PRO 19',
-		'price'  => '2999',
+		'price'  => '1750',
 		'cats'   => array( 'audio' ),
 		'folder' => 'air-buds-pro-19',
 		'short'  => 'True wireless earbuds with a compact charging case.',

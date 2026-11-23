@@ -514,3 +514,12 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 /* =================== QA fixes (v1.3.6) =================== */
 /* 100vw backdrops include the desktop scrollbar width -> never allow sideways scroll (clip keeps sticky header working) */
 @supports (overflow:clip){html,body{overflow-x:clip}}
+
+/* =================== Slider with many slides (v1.3.8) =================== */
+.slide .btns .btn{white-space:nowrap}
+.dots{flex:0 1 auto;min-width:0}
+.dots button{flex:0 1 34px;min-width:10px}
+@media (max-width:560px){
+  .slider-ui{right:72px !important;gap:10px}
+  .dots{gap:5px}
+}
