@@ -493,3 +493,8 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .st-power .a{height:90%;left:0;bottom:5%}
 .st-power .b{width:36%;left:52%;bottom:0}
 .st-power .c{height:56%;right:-2%;bottom:8%}
+@media (max-width:560px){
+  .st-power .a{height:90%;left:4%;bottom:3%}
+  .st-power .b{width:42%;left:47%;bottom:0}
+  .st-power .c{height:62%;right:0;bottom:6%}
+}

@@ -27,7 +27,8 @@ function oyepick_opt( $key ) {
 }
 
 function oyepick_img( $path ) {
-	return OYEPICK_URI . '/assets/images/' . ltrim( $path, '/' );
+	// ?v= busts browser/CDN caches (Hostinger caches images for 7 days) whenever the theme version changes.
+	return OYEPICK_URI . '/assets/images/' . ltrim( $path, '/' ) . '?v=' . OYEPICK_VERSION;
 }
 
 function oyepick_wa_link( $text = '' ) {
