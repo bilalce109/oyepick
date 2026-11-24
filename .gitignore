@@ -20,3 +20,4 @@ Thumbs.db
 
 # UpdraftPlus backups (private: contain the database)
 backups/
+tutorials/
