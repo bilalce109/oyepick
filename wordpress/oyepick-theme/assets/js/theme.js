@@ -71,7 +71,8 @@
     var ago = function (m) {
       if (m < 2) return S.i18n.justNow;
       if (m < 120) return m + ' ' + S.i18n.minsAgo;
-      return Math.round(m / 60) + ' ' + S.i18n.hoursAgo;
+      if (m < 2880) return Math.round(m / 60) + ' ' + S.i18n.hoursAgo;
+      return Math.round(m / 1440) + ' ' + S.i18n.daysAgo;
     };
     var closed = false;
     try { closed = sessionStorage.getItem('op-pop-closed') === '1'; } catch (e) {}

@@ -43,7 +43,7 @@ function oyepick_recent_orders() {
 			'status'       => array( 'wc-processing', 'wc-completed', 'wc-on-hold' ),
 			'orderby'      => 'date',
 			'order'        => 'DESC',
-			'date_created' => '>' . ( time() - 14 * DAY_IN_SECONDS ),
+			'date_created' => '>' . ( time() - 60 * DAY_IN_SECONDS ), // real orders of the last 60 days
 			'type'         => 'shop_order',
 		)
 	);
