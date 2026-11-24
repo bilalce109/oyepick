@@ -4,8 +4,6 @@
  *
  *   orders = REAL WooCommerce orders only: "Adeel from Karachi purchased …" (first name + city,
  *            no surname, phone, address or email). Mention this in your privacy policy.
- *   picks  = all published products, shown as "OyePick pick" (price + COD). These never claim
- *            that someone bought them, so the notification keeps running when there are no orders.
  *
  * GET /wp-json/oyepick/v1/recent-orders
  *
@@ -34,7 +32,7 @@ function oyepick_recent_orders() {
 		return rest_ensure_response( array() );
 	}
 
-	$cached = get_transient( 'oyepick_recent_orders_v4' );
+	$cached = get_transient( 'oyepick_recent_orders_v5' );
 	if ( false !== $cached ) {
 		return rest_ensure_response( $cached );
 	}
@@ -74,24 +72,11 @@ function oyepick_recent_orders() {
 		);
 	}
 
-	$picks = array();
-	foreach ( wc_get_products( array( 'status' => 'publish', 'limit' => 50, 'visibility' => 'catalog' ) ) as $product ) {
-		$img     = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
-		$picks[] = array(
-			'product' => html_entity_decode( wp_strip_all_tags( $product->get_name() ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
-			'url'     => get_permalink( $product->get_id() ),
-			'image'   => $img ? $img : wc_placeholder_img_src(),
-			'priced'  => '' !== $product->get_price(),
-			'price'   => html_entity_decode( oyepick_price( $product, __( 'Price on WhatsApp', 'oyepick' ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ), // plain text: the JS escapes it
-		);
-	}
-
-	$data = array( 'orders' => $out, 'picks' => $picks );
-	set_transient( 'oyepick_recent_orders_v4', $data, MINUTE_IN_SECONDS );
+	$data = array( 'orders' => $out );
+	set_transient( 'oyepick_recent_orders_v5', $data, MINUTE_IN_SECONDS );
 	return rest_ensure_response( $data );
 }
 
 // Fresh data as soon as an order comes in.
-add_action( 'woocommerce_new_order', fn() => delete_transient( 'oyepick_recent_orders_v4' ) );
-add_action( 'woocommerce_order_status_changed', fn() => delete_transient( 'oyepick_recent_orders_v4' ) );
-add_action( 'save_post_product', fn() => delete_transient( 'oyepick_recent_orders_v4' ) );
+add_action( 'woocommerce_new_order', fn() => delete_transient( 'oyepick_recent_orders_v5' ) );
+add_action( 'woocommerce_order_status_changed', fn() => delete_transient( 'oyepick_recent_orders_v5' ) );

@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'OYEPICK_VERSION', '1.3.17' );
+define( 'OYEPICK_VERSION', '1.3.18' );
 define( 'OYEPICK_URI', get_template_directory_uri() );
 define( 'OYEPICK_DIR', get_template_directory() );
 
@@ -78,8 +78,6 @@ function oyepick_assets() {
 				'justNow'   => __( 'just now', 'oyepick' ),
 				'hoursAgo'  => __( 'hours ago', 'oyepick' ),
 				'daysAgo'   => __( 'days ago', 'oyepick' ),
-				'pick'      => __( 'OyePick pick', 'oyepick' ),
-				'cod'       => __( 'Cash on delivery', 'oyepick' ),
 				'verified'  => __( 'Verified order', 'oyepick' ),
 			),
 		)

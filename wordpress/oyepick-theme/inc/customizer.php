@@ -24,7 +24,7 @@ function oyepick_customize_register( $wp_customize ) {
 		'facebook'       => array( __( 'Facebook URL', 'oyepick' ), 'url' ),
 		'tiktok'         => array( __( 'TikTok URL', 'oyepick' ), 'url' ),
 		'address'        => array( __( 'Store address', 'oyepick' ), 'textarea' ),
-		'popup_enabled'  => array( __( 'Show the corner notification (real orders + product picks)', 'oyepick' ), 'checkbox' ),
+		'popup_enabled'  => array( __( 'Show "recent purchase" notifications (real orders only)', 'oyepick' ), 'checkbox' ),
 		'popup_interval' => array( __( 'Seconds between notifications', 'oyepick' ), 'number' ),
 	);
 
