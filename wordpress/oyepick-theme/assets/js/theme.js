@@ -77,14 +77,22 @@
     var closed = false;
     try { closed = sessionStorage.getItem('op-pop-closed') === '1'; } catch (e) {}
     var list = [], n = 0;
+    var shuffle = function (a) {
+      for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    };
+    var tick = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';
     var show = function () {
       if (closed || !list.length) return;
       var o = list[n++ % list.length];
-      pop.innerHTML =
-        '<img src="' + esc(o.image) + '" alt="">' +
-        '<div class="t"><b>' + esc(o.name) + '</b>' + (o.city ? ' ' + S.i18n.from + ' ' + esc(o.city) : '') + ' ' + S.i18n.purchased +
-        '<a href="' + esc(o.url) + '">' + esc(o.product) + '</a>' +
-        '<small><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' + S.i18n.verified + ' · ' + ago(o.mins) + '</small></div>' +
+      var body = o.name
+        ? '<b>' + esc(o.name) + '</b>' + (o.city ? ' ' + S.i18n.from + ' ' + esc(o.city) : '') + ' ' + S.i18n.purchased +
+          '<a href="' + esc(o.url) + '">' + esc(o.product) + '</a>' +
+          '<small>' + tick + S.i18n.verified + ' · ' + ago(o.mins) + '</small>'
+        : '<b>' + S.i18n.pick + '</b>' +
+          '<a href="' + esc(o.url) + '">' + esc(o.product) + '</a>' +
+          '<small>' + tick + esc(o.price) + (o.priced ? ' · ' + S.i18n.cod : '') + '</small>';
+      pop.innerHTML = '<img src="' + esc(o.image) + '" alt=""><div class="t">' + body + '</div>' +
         '<button class="x" type="button" aria-label="Close">✕</button>';
       pop.classList.add('show');
       pop.querySelector('.x').onclick = function () {
@@ -93,17 +101,39 @@
       };
       setTimeout(function () { pop.classList.remove('show'); }, 6000);
     };
+    // Real orders first, then the products in random order; after every 2 products a real order comes back.
+    var build = function (d) {
+      var orders = (d && Array.isArray(d.orders)) ? d.orders : (Array.isArray(d) ? d : []);
+      var picks = shuffle((d && Array.isArray(d.picks)) ? d.picks.slice() : []);
+      var out = [], k = 0;
+      picks.forEach(function (p, i) {
+        if (orders.length && i % 2 === 0) out.push(orders[k++ % orders.length]);
+        out.push(p);
+      });
+      return out.length ? out : orders;
+    };
     var load = function () {
       return fetch(S.ordersUrl, { credentials: 'same-origin' })
         .then(function (r) { return r.ok ? r.json() : []; })
-        .then(function (d) { list = Array.isArray(d) ? d : []; })
+        .then(function (d) {
+          list = build(d); n = 0;
+          list.forEach(function (o) { var im = new Image(); im.src = o.image; }); // preload, so the picture is ready when it pops up
+        })
         .catch(function () { list = []; });
     };
     if (!closed) {
       setTimeout(function () {
         load().then(function () {
-          show();
-          setInterval(function () { load().then(show); }, (S.interval || 25) * 1000);
+          // wait until the first picture has loaded (max 3 s) so it never pops up empty
+          var first = list[0] ? new Image() : null, started = false;
+          var start = function () {
+            if (started) return; started = true;
+            show();
+            setInterval(show, (S.interval || 25) * 1000);
+          };
+          if (first) { first.onload = first.onerror = start; first.src = list[0].image; if (first.complete) start(); }
+          setTimeout(start, 3000);
+          setInterval(load, 10 * 60 * 1000); // pick up new orders every 10 minutes
         });
       }, (S.firstDelay || 6) * 1000);
     }
