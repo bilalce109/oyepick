@@ -105,23 +105,7 @@ function oyepick_product_cats( $product ) {
 add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
 add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 
-// Colour chips (from the product's "Colour" attribute) under the price.
-add_action(
-	'woocommerce_single_product_summary',
-	function () {
-		global $product;
-		$colours = $product ? $product->get_attribute( 'Colour' ) : '';
-		if ( ! $colours ) {
-			return;
-		}
-		echo '<div class="op-colours"><span>' . esc_html__( 'Available colours', 'oyepick' ) . '</span><ul>';
-		foreach ( array_filter( array_map( 'trim', preg_split( '/[|,]/', $colours ) ) ) as $c ) {
-			echo '<li>' . esc_html( $c ) . '</li>';
-		}
-		echo '</ul></div>';
-	},
-	25
-);
+// Colour swatches (click = photo of that colour, colour saved with the order): see inc/colour-photos.php
 
 // WhatsApp order button + trust points after "Add to cart".
 add_action(

@@ -191,7 +191,7 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .wp-block-woocommerce-checkout-order-summary-block,.wc-block-cart__sidebar .wp-block-woocommerce-cart-order-summary-block{background:var(--bg-2);border:1px solid var(--line) !important;border-radius:20px !important;overflow:hidden}
 .wc-block-cart__sidebar{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:20px !important}
 .wc-block-cart__sidebar .wp-block-woocommerce-cart-order-summary-block{border:0 !important;background:none}
-.wc-block-components-order-summary .wc-block-components-product-metadata{display:none}
+.wc-block-components-order-summary .wc-block-components-product-metadata__description{display:none}
 .wc-block-checkout__sidebar .wc-block-components-panel,.wc-block-cart__sidebar .wc-block-components-panel{border-color:var(--line) !important}
 .wc-block-components-order-summary-item__image img{border-radius:12px}
 .wc-block-components-order-summary-item__quantity{background:var(--brand) !important;color:#fff !important;border:0 !important;box-shadow:none !important}
@@ -235,7 +235,7 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .woocommerce .op-card .price.ask{font-size:14px !important;color:var(--brand) !important}
 .op-card .body h3{font-size:15.5px !important;line-height:1.4 !important;padding:0 !important;margin:6px 0 10px !important;min-height:2.8em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .op-card .body .note{margin:0 0 12px !important}
-.wc-block-cart-items .wc-block-components-product-metadata{display:none}
+.wc-block-cart-items .wc-block-components-product-metadata__description{display:none}
 .op-card .foot .price.ask,.woocommerce .op-card .foot .price.ask{font-size:14px !important;font-weight:700 !important;color:var(--brand) !important}
 
 /* Single product summary extras */
@@ -555,3 +555,15 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
 .op-lightbox button{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--ink);font-size:18px;cursor:pointer}
 .op-rv-thanks{display:flex;gap:10px;align-items:flex-start;background:#e8f5ee;color:#1f6b45;border:1px solid #bfe3cf;border-radius:14px;padding:12px 14px;margin-bottom:16px;font-weight:600}
 .op-rv-thanks svg{flex:none;margin-top:2px}
+
+/* =================== Colour swatches (v1.3.20) =================== */
+.op-colours span b{color:var(--ink);text-transform:none;letter-spacing:0;font-weight:700}
+.op-colours li{border:0 !important;padding:0 !important;background:none !important}
+.op-sw{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px 6px 7px;font:600 13.5px/1 inherit;font-family:inherit;color:var(--ink);background:rgba(255,255,255,.92);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.op-sw i{width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);flex:none}
+.op-sw:hover{border-color:var(--brand)}
+.op-sw.on{border-color:var(--brand);box-shadow:0 0 0 3px rgba(29,92,99,.18)}
+.op-sw.on i{box-shadow:inset 0 0 0 1px rgba(0,0,0,.12),0 0 0 2px #fff,0 0 0 4px var(--brand)}
+/* chosen colour under the product name in cart / checkout blocks */
+.wc-block-components-product-details{list-style:none;margin:4px 0 0 !important;padding:0 !important;font-size:13px;color:var(--ink-2)}
+.wc-block-components-product-details__name{font-weight:700}

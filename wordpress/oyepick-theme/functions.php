@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'OYEPICK_VERSION', '1.3.19' );
+define( 'OYEPICK_VERSION', '1.3.21' );
 define( 'OYEPICK_URI', get_template_directory_uri() );
 define( 'OYEPICK_DIR', get_template_directory() );
 
@@ -17,6 +17,7 @@ require OYEPICK_DIR . '/inc/recent-orders.php';
 require OYEPICK_DIR . '/inc/woocommerce.php';
 require OYEPICK_DIR . '/inc/slides.php';
 require OYEPICK_DIR . '/inc/review-photos.php';
+require OYEPICK_DIR . '/inc/colour-photos.php';
 
 /**
  * Theme supports & menus.
