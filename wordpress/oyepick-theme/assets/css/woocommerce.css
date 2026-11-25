@@ -533,3 +533,25 @@ ul.products.op-grid > li.op-cell{margin:0;padding:0;width:auto;float:none;list-s
   .slide.is-long h1,.slide.is-long h2{font-size:22px}
   .slide .btns .btn{flex:1 1 auto;white-space:normal;text-align:center;line-height:1.2}
 }
+
+/* =================== Review photos (v1.3.19) =================== */
+.op-rv-form .comment-form-photos{display:grid;gap:8px}
+.op-rv-form .comment-form-photos .lbl{font-size:13px;font-weight:700;color:var(--ink-2)}
+.op-rv-form .comment-form-photos .lbl em{font-style:normal;font-weight:500;color:var(--muted)}
+.op-rv-form .comment-form-photos input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.op-rv-form label.op-ph-btn{display:inline-flex;align-items:center;gap:8px;width:max-content;margin:0;padding:10px 16px;border:1.5px dashed var(--brand);border-radius:12px;color:var(--brand);background:var(--brand-soft);cursor:pointer;font-weight:700}
+.op-rv-form label.op-ph-btn:hover{background:#fff}
+.op-rv-form .comment-form-photos input[type=file]:focus-visible + .op-ph-prev,.op-rv-form .comment-form-photos input[type=file]:focus + .op-ph-prev{outline:0}
+.op-rv-form .comment-form-photos small{color:var(--muted);font-size:12.5px}
+.op-ph-prev{display:flex;gap:8px;flex-wrap:wrap}
+.op-ph-prev:empty{display:none}
+.op-ph-prev img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.op-rv-photos{display:flex;gap:8px;flex-wrap:wrap}
+.op-rv-ph{display:block;width:76px;height:76px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg-2)}
+.op-rv-ph img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.op-rv-ph:hover img{transform:scale(1.06)}
+.op-lightbox{position:fixed;inset:0;z-index:200;background:rgba(10,18,20,.88);display:grid;place-items:center;padding:20px;cursor:zoom-out}
+.op-lightbox img{max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.op-lightbox button{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--ink);font-size:18px;cursor:pointer}
+.op-rv-thanks{display:flex;gap:10px;align-items:flex-start;background:#e8f5ee;color:#1f6b45;border:1px solid #bfe3cf;border-radius:14px;padding:12px 14px;margin-bottom:16px;font-weight:600}
+.op-rv-thanks svg{flex:none;margin-top:2px}

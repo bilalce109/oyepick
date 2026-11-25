@@ -75,6 +75,9 @@ $reviews = get_comments(
 		<?php endif; ?>
 
 		<div id="review_form_wrapper" class="op-rv-form">
+			<?php if ( isset( $_GET['unapproved'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification -- only shows a thank-you note ?>
+				<div class="op-rv-thanks" role="status"><?php echo oyepick_icon( 'check', 16 ); // phpcs:ignore ?><span><?php esc_html_e( 'Thank you! Your review has been received and will appear after a quick check.', 'oyepick' ); ?></span></div>
+			<?php endif; ?>
 			<?php
 			$can_review = 'no' === get_option( 'woocommerce_review_rating_verification_required' ) || wc_customer_bought_product( '', get_current_user_id(), $product->get_id() );
 			if ( $can_review ) :
@@ -110,7 +113,12 @@ $reviews = get_comments(
 						'class_submit'         => 'btn btn-primary',
 						'logged_in_as'         => '',
 						'fields'               => $fields,
-						'comment_field'        => $rating_field . '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'oyepick' ) . ' <span class="required">*</span></label><textarea id="comment" name="comment" rows="4" placeholder="' . esc_attr__( 'What did you like or dislike?', 'oyepick' ) . '" required></textarea></p>',
+						'comment_field'        => $rating_field . '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'oyepick' ) . ' <span class="required">*</span></label><textarea id="comment" name="comment" rows="4" placeholder="' . esc_attr__( 'What did you like or dislike?', 'oyepick' ) . '" required></textarea></p>'
+								. '<div class="comment-form-photos"><span class="lbl">' . esc_html__( 'Add photos', 'oyepick' ) . ' <em>' . esc_html( sprintf( /* translators: %d: max photos */ __( '(optional, up to %d)', 'oyepick' ), OYEPICK_RV_MAX_PHOTOS ) ) . '</em></span>'
+								. '<label class="op-ph-btn" for="op_review_photos">' . oyepick_icon( 'plus', 16 ) . '<span>' . esc_html__( 'Choose photos', 'oyepick' ) . '</span></label>'
+								. '<input type="file" id="op_review_photos" name="op_review_photos[]" accept="image/jpeg,image/png,image/webp" multiple>'
+								. '<div class="op-ph-prev" id="op_ph_prev"></div>'
+								. '<small>' . esc_html__( 'Reviews with photos appear after a quick check by our team.', 'oyepick' ) . '</small></div>',
 					)
 				);
 			else :
@@ -140,6 +148,7 @@ $reviews = get_comments(
 				</div>
 				<?php if ( $rating ) : ?><?php echo oyepick_stars( $rating ); // phpcs:ignore ?><?php endif; ?>
 				<div class="txt"><?php echo wp_kses_post( wpautop( $r->comment_content ) ); ?></div>
+					<?php echo oyepick_review_photos_html( $r->comment_ID ); // phpcs:ignore -- escaped inside ?>
 			</article>
 		<?php endforeach; ?>
 	</div>
